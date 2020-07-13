@@ -300,3 +300,22 @@ console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
 ```
 
 ![img](./image/img3.png)
+
+---
+
+## ES10:
+
+### `1.Object.fromEntries()`
+
+`Object.fromEntries` 这个新的 API 实现了与 `Object.entries` 相反的操作。这使得根据对象的 entries 很容易得到 object。
+
+```
+var object = {
+    a : 1,
+    b : 2
+}
+
+const arr = Object.entries(object) // [["a","1"],["b","2"]]
+
+const obj = Object.fromEntries(arr) // {a:1,b:2}
+```
