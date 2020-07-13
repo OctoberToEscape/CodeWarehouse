@@ -9,7 +9,12 @@
 #### a.传入对象，返回键名
 
 ```
-var object = {a:1,b:2,c:3,d:4}
+var object = {
+    a : 1,
+    b : 2,
+    c : 3,
+    d : 4
+}
 
 console.log(Object.keys(object)) //["a","b","c","d"]
 
@@ -51,6 +56,63 @@ var people = new Person("heqi",24,"men")
 
 console.log(Object.keys(people)) // ["name","age","gender","toString"]
 ```
+
+### `2.Object.getOwnPropertyDescriptor(obj,prop)`
+
+`Object.getOwnPropertyDescriptor(obj,prop)`返回一个指定对象上的自有属性对应的属性描述 （自由属性指，直接赋值的属性，不需要从原型上查找的属性)。**obj=>需要查找的目标对象 prop=>目标对象内的属性名称** **_`注意事项：ES5 第一个参数不是对象，就会产生 TypeError, ES2015(ES6) 第一个参数不是对象的话，就会被强制转换成对象`_**
+
+```
+var objeect = {
+    a : 1,
+    b : 2,
+    get bar (){
+        return  "heqi"
+    }
+}
+console.log(Object.getOwnPropertyDescriptor(object,"bar"))
+
+打印结果如下图所示
+```
+
+![img](./image/img4.png)
+
+### `3.Object.defineProperty( obj, prop, decriptor)`
+
+`Object.defineProperty( obj, prop, decriptor)` 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。如果不指定 configurable, writable, enumerable ，则这些属性默认值为 false，如果不指定 value, get, set，则这些属性默认值为 undefined。**obj=>要在其上定义属性的对象,prop=>要定义或修改的属性名称,decriptor=>将被定义或修改的属性描述符**
+
+```
+var obj = {}
+Object.defineProperty(obj,'name'{
+    configurable : true,
+    writable : true,
+    enumerable : true,
+    value : "heqi"
+})
+console.log(obj.name) // heqi
+```
+
+### `4.Object.defineProperties(obj,prop)`
+
+`Object.defineProperties(obj,prop)`方法直接在一个对象上定义一个或多个新的属性或修改现有属性，并返回该对象。**obj=>将要被添加属性或修改属性的对象,prop=>该对象的一个或多个键值对定义了将要为对象添加或修改的属性的具体配置**
+
+```
+var object = {
+    name : {
+        configurable : true,
+        writable : true,
+        enumerable : true,
+        value : "heqi"
+    },
+    age : {
+        value : 24,
+        configurable : true,
+    }
+}
+
+console.log(object.name,object.age) // heqi , 24
+```
+
+---
 
 ## ES6：
 
@@ -138,3 +200,103 @@ Object.setPrototypeOf(object,{b : 20})
 console.log(object.b)   // 20
 console.log(object)     // {a : 10}
 ```
+
+---
+
+## ES8:
+
+### `1.Object.values()`
+
+ES5 引入了 `Object.keys()` 方法,返回一个数组,成员是参数对象自身的（**不含继承**）所有可遍历属性的键名。ES8 引入了跟 `Object.keys()` 配套的 `Object.values()`,`Object.entries()` 作为遍历一个对象的补充手段，供 `for...of` 循环使用。需要注意的是**如果键名是数值属性的话，是按照数值的大小，从小到大遍历的，因此例 2 返回数组为["b","c","a"]**
+
+```
+var object = {
+    a : 1,
+    b : 2
+}
+Object.values(object)   //[1,2]
+
+var object = {
+    90 : 'a',
+    20 : 'b',
+    50 : 'c'
+}
+Object.values(object) //["b","c","a"]
+```
+
+### `2.Object.entries()`
+
+`Object.entries()`方法返回一个数组，成员是参数对象自身的（**不含继承的**）所有可遍历属性的键值对数组。这个特性我们后面介绍 ES10 的 `Object.fromEntries()`还会再提到。需要注意的是**如果键名是数值属性的话，是按照数值的大小，从小到大遍历的，因此例 2 返回数组为[["20","b"],["50","c"],["90","a"]]**
+
+```
+var object = {
+    a : 1,
+    b : 2
+}
+Object.entries(object)  // [["a",1],["b",2]]
+
+var object = {
+    90 : 'a',
+    20 : 'b',
+    50 : 'c'
+}
+Object.entries(object)  // [["20","b"],["50","c"],["90","a"]]
+```
+
+### `3.Object.getOwnPropertyDescriptors()`
+
+ES5 的 `Object.getOwnPropertyDescriptor()`方法会返回某个对象属性的描述对象。ES8 引入了 `Object.getOwnPropertyDescriptors()`方法，返回指定对象所有自身属性（**非继承属**性）的描述对象。
+
+```
+var object = {
+    name : "heqi",
+    get age (){
+        return 24
+    }
+}
+console.log(Object.getOwnPropertyDescriptors(object))
+
+得到的结果如下图
+```
+
+![img](./image/img1.png)
+
+**该方法的引入主要是为了解决 `Object.assign()`无法正确拷贝 get 属性和 set 属性的问题,我们来举个例子**
+
+```
+var target = {};
+var object = {
+    set foo (val){
+        console.log(val)
+    },
+    get bar (){
+        return "heqi"
+    }
+}
+Object.assign(target,object)
+console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
+
+得到的结果如下图
+```
+
+![img](./image/img2.png)
+
+**上面代码中，object 对象的 foo 属性的值是一个赋值函数，`Object.assign` 方法将这个属性拷贝给 target 对象，结果该属性的值变成了 undefined。这是因为 `Object.assign` 方法总是拷贝一个属性的值，而不会拷贝它背后的赋值方法或取值方法。** **_这个时候`Object.getOwnPropertyDescriptors()`方法配合`Object.defineProperties()`方法，就可以实现正确拷贝_**。
+
+```
+var target = {}
+var object = {
+    set foo (val){
+        console.log(val)
+    },
+    get bar (){
+        return "heqi"
+    }
+}
+Object.defineProperties(target,Object.getOwnPropertyDescriptors(object))
+console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
+
+得到结果如下图
+```
+
+![img](./image/img3.png)
