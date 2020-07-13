@@ -7,8 +7,10 @@
 	</head>
 	<body></body>
 	<script>
-		for (let i = 0; i < 3 ;i++) {
-			console.log(i);
-		}
+		var arr = ["1", "", 0, false, "11"];
+		var res = arr.filter((item, index) => {
+			return item;
+		});
+		console.log(res);
 	</script>
 </html>

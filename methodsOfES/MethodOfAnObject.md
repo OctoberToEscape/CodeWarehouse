@@ -2,7 +2,7 @@
 
 ## ES5：
 
-### `1.Object.keys()`
+### 1.`Object.keys()`
 
 在实际开发中，我们有时候需要知道对象的所有属性，于是 ES5 引入了`Object.keys()`的方法，成员是参数对象的自身(**不含继承的**)所有可遍历属性的键名 **后面 ES8 有类似的方法`Object.values()`,`Object.entries()`**。
 
@@ -57,7 +57,7 @@ var people = new Person("heqi",24,"men")
 console.log(Object.keys(people)) // ["name","age","gender","toString"]
 ```
 
-### `2.Object.getOwnPropertyDescriptor(obj,prop)`
+### 2.`Object.getOwnPropertyDescriptor(obj,prop)`
 
 `Object.getOwnPropertyDescriptor(obj,prop)`返回一个指定对象上的自有属性对应的属性描述 （自由属性指，直接赋值的属性，不需要从原型上查找的属性)。**obj=>需要查找的目标对象 prop=>目标对象内的属性名称** **_`注意事项：ES5 第一个参数不是对象，就会产生 TypeError, ES2015(ES6) 第一个参数不是对象的话，就会被强制转换成对象`_**
 
@@ -76,7 +76,7 @@ console.log(Object.getOwnPropertyDescriptor(object,"bar"))
 
 ![img](./image/img4.png)
 
-### `3.Object.defineProperty( obj, prop, decriptor)`
+### 3.`Object.defineProperty( obj, prop, decriptor)`
 
 `Object.defineProperty( obj, prop, decriptor)` 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。如果不指定 configurable, writable, enumerable ，则这些属性默认值为 false，如果不指定 value, get, set，则这些属性默认值为 undefined。**obj=>要在其上定义属性的对象,prop=>要定义或修改的属性名称,decriptor=>将被定义或修改的属性描述符**
 
@@ -91,7 +91,7 @@ Object.defineProperty(obj,'name'{
 console.log(obj.name) // heqi
 ```
 
-### `4.Object.defineProperties(obj,prop)`
+### 4.`Object.defineProperties(obj,prop)`
 
 `Object.defineProperties(obj,prop)`方法直接在一个对象上定义一个或多个新的属性或修改现有属性，并返回该对象。**obj=>将要被添加属性或修改属性的对象,prop=>该对象的一个或多个键值对定义了将要为对象添加或修改的属性的具体配置**
 
@@ -116,7 +116,7 @@ console.log(object.name,object.age) // heqi , 24
 
 ## ES6：
 
-### `1.Object.create(prototype,[propertiesObject])`
+### 1.`Object.create(prototype,[propertiesObject])`
 
 使用已存在的指定原型对象及其属性去创建一个新的对象
 
@@ -144,7 +144,7 @@ console.log(son) // {c : 3}
 console.log(parent.__proto__) // {a : 1 , b : 2}
 ```
 
-### `2.Object.is()`
+### 2.`Object.is()`
 
 在 javascript 中，你想通过判断两个值知否相等的时候通常使用 == 或者 === 来进行判断。多数情况下因为==会隐式转换，所以严格情况下多数使用恒等===来进行判断。但是===也不是没有缺陷的，例如他会认为+0 和-0 是相等的，NaN === NaN 他会告诉 false，所以判断 NaN 必须使用 `isNaN()`来判断 NaN。
 
@@ -165,7 +165,7 @@ console.log(Object.is(5, 5));       // true
 console.log(Object.is(5, "5"));     // false
 ```
 
-### `3.Object.assign()`
+### 3.`Object.assign()`
 
 使用`Object.assign()`主要是为了简化对象的混入(minin)。`Object.assign()`可以吧一个对象的属性和访问完整的拷贝到另一个对象中。 **后面 ES8 会有新方法完善此方法的不足，方法名是`Object.getOwnPropertyDescriptors()`**
 
@@ -190,7 +190,7 @@ console.log(newObject.friends); //['张三', '李四', '王五']
 
 ```
 
-### `4.Object.setPrototypeOf()`
+### 4.`Object.setPrototypeOf()`
 
 通常`Object.setPrototypeOf(obj,newObj)`用来设置一个对象的原型对象，返回参数对象的本身,obj=>参数对象,newObj=>新的原型对象，**如果第一个参数不是对象,会自动转为对象,undefined 和 null 报错**。
 
@@ -205,7 +205,7 @@ console.log(object)     // {a : 10}
 
 ## ES8:
 
-### `1.Object.values()`
+### 1.`Object.values()`
 
 ES5 引入了 `Object.keys()` 方法,返回一个数组,成员是参数对象自身的（**不含继承**）所有可遍历属性的键名。ES8 引入了跟 `Object.keys()` 配套的 `Object.values()`,`Object.entries()` 作为遍历一个对象的补充手段，供 `for...of` 循环使用。需要注意的是**如果键名是数值属性的话，是按照数值的大小，从小到大遍历的，因此例 2 返回数组为["b","c","a"]**
 
@@ -224,7 +224,7 @@ var object = {
 Object.values(object) //["b","c","a"]
 ```
 
-### `2.Object.entries()`
+### 2.`Object.entries()`
 
 `Object.entries()`方法返回一个数组，成员是参数对象自身的（**不含继承的**）所有可遍历属性的键值对数组。这个特性我们后面介绍 ES10 的 `Object.fromEntries()`还会再提到。需要注意的是**如果键名是数值属性的话，是按照数值的大小，从小到大遍历的，因此例 2 返回数组为[["20","b"],["50","c"],["90","a"]]**
 
@@ -243,7 +243,7 @@ var object = {
 Object.entries(object)  // [["20","b"],["50","c"],["90","a"]]
 ```
 
-### `3.Object.getOwnPropertyDescriptors()`
+### 3.`Object.getOwnPropertyDescriptors()`
 
 ES5 的 `Object.getOwnPropertyDescriptor()`方法会返回某个对象属性的描述对象。ES8 引入了 `Object.getOwnPropertyDescriptors()`方法，返回指定对象所有自身属性（**非继承属**性）的描述对象。
 
@@ -305,7 +305,7 @@ console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
 
 ## ES10:
 
-### `1.Object.fromEntries()`
+### 1.`Object.fromEntries()`
 
 `Object.fromEntries` 这个新的 API 实现了与 `Object.entries` 相反的操作。这使得根据对象的 entries 很容易得到 object。
 
