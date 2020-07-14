@@ -64,8 +64,8 @@ conse.log(array) //[1,2]
 ```
 var array = [1,2]
 
-var newArray = array.unshift(4) // 3
-console.log(array) // [3,1,2]
+var newArray = array.unshift(4) //  3
+console.log(array) // [4,1,2]
 
 var array = [1,2]
 var newArray = array.unshift(4,5,6) // 5
@@ -74,7 +74,7 @@ console.log(array) // [4,5,6,1,2]
 
 ### 6.`shift()`
 
-该方法可以在数组的最前面,添加一个元素。返回值: 返回的是刚才删除的元素.**_改变原数组_**
+该方法可以在数组的最前面,删除一个元素。返回值: 返回的是刚才删除的元素.**_改变原数组_**
 
 ```
 var array = [1,2,3,4]
@@ -217,6 +217,37 @@ console.log(array.lastIndexOf(1)) // 6
 console.log(array.lastIndexOf(222)) // -1
 ```
 
+### 14.`copyWithin(target,start,end)`
+
+数组实例的 `copyWithin()`方法，在当前数组内部，将指定位置的成员复制到其他位置 **(会覆盖原有成员)**，然后**返回当前数组**。也就是说，使用这个方法，会 **_修改当前数组_** 。**target(必须)=>从该位置开始替换数据。start(可选)=>从该位置开始读取数据，`默认为 0。如果为负值，表示倒数`。end(可选)=>到该位置前停止读取数据，`默认等于数组长度。如果为负值，表示倒数`。**
+
+```
+var arr = [1,2,3,4,5]
+arr.copyWithin(0,3) // [4,5,3,4,5]  表示将从下标3位直到数组结束的成员（4 和 5），复制到从下标0开始的位置，结果覆盖了原来的 1 和 2。
+
+arr.copyWithin(1,3,4) // [1,4,3,4,5] 表示从下标3开始到下标4之间的成员(不包含4)的值复制到下标为1的位置上
+
+arr.copyWithin(0,-2,-1) // [4,2,3,4,5] // -2相当于下标3，-1相当于下标4 既将下标3到下标4之间的成员(不包含下标4)的值复制到下标0的位置上
+```
+
+### 15.`fill(value,start,end)`
+
+函数用于使用给定的静态值填充数组。该值可用于填充整个数组，也可用于填充数组的一部分。**value=>定义了要替换数组元素的静态值。start（可选）=>它定义了使用静态值填充数组的起始索引。如果未定义此值，则将起始索引视为 0。如果 start 为负，则起始索引为 `length + start`。end（可选）=>此参数定义要使用静态值填充数组的最后一个索引。如果未定义此值，则默认情况下，将 `arr.length - 1` 的最后一个索引作为结束值。如果结束为负，则将终止索引定义为 `length + end`。**
+
+```
+var arr1 = []
+arr1.fill(6) // [] 原数组中没有定长度，没有数据可以替换，所以结果仍为空
+
+var arr2 = ["a","b","c"]
+arr2.fill(7) // [7,7,7] 将每一项都替换成7
+
+var arr3 = [1,2,3,4,5]
+arr3.fill(10,2,4) // [1,2,10,10,5] 从下标为2开始到下标为4结束(不包含下标4)的值都替换成10
+
+var arr4 = [1,2,3,4,5,6,7,8]
+arr4.fill(10,-5,-2) [1,2,3,10,10,10,7,8]  -5则表示从左往右5个既下标3开始  -2则表示从左往右2个既下标6(不包含下标6)结束 的数值 换成 10
+```
+
 ## ES5 新增的数组遍历的方法：
 
 ### 1.`forEach(item,index,arr)`
@@ -251,7 +282,7 @@ console.log(res2) // undefined
 
 ### 3.`filter(item,index)`
 
-过滤出符合条件的元素,**返回一个数组**、
+过滤出符合条件的元素,**返回一个数组,item=>数组循环出来的每一项，index=>索引**
 
 ```
 常规过滤
@@ -269,3 +300,165 @@ var res = arr.filter((item,index)=>{
 })
 console.log(res) // ["1", "11"]
 ```
+
+### 4.`some()`
+
+判断数组中有没有符合条件的项 **(只要有,就返回 true)**,如果一个都没有,**返回 false**
+
+```
+var arr = [
+    {
+        name:"heqi",
+        age:24,
+    },
+    {
+        name:"javascript",
+        age:50,
+        done:true
+    },
+    {
+        name:"java",
+        age:70,
+        done:false
+    }
+]
+
+var res1 = arr.some((item)=>{
+    return item.done
+})
+console.log(res1) // true
+
+var res2 = arr.some((item)=>{
+    return item.home
+})
+console.log(res2) // false
+```
+
+### 5.`every()`
+
+判断数组中 **_所有的项_** 是否满足要求,**如果全都满足,返回 true,否则返回 false**
+
+```
+var arr = [
+    {
+        name:"heqi",
+        age:24,
+    },
+    {
+        name:"javascript",
+        age:50,
+        done:true
+    },
+    {
+        name:"java",
+        age:70,
+        done:false
+    }
+]
+
+var res1 = arr.every((item)=>{
+    return item.age
+})
+console.log(res1) // true
+
+var res2 = arr.every((item)=>{
+    return item.done
+})
+console.log(res2) // false
+```
+
+### 6.`find()`
+
+找到符合条件的**项**,并且**返回第一项**
+
+```
+var arr = [
+    { id: 1, name: "heqi", done: false },
+    { id: 2, name: "javascript", done: true },
+    { id: 3, name: "java", done: true }
+]
+
+var res = arr.find((item)=>{
+    return item.done
+})
+console.log(res) // {id: 2, name: "javascript", done: true}
+```
+
+### 7.`findIndex()`
+
+找到符合条件的**项的下标**,并且**返回第一个符合条件的下标**
+
+```
+var arr = [
+    { id: 1, name: "heqi", done: false },
+    { id: 2, name: "javascript", done: true },
+    { id: 3, name: "java", done: true }
+]
+
+var res = arr.findIndex((item)=>{
+    return item.done
+})
+console.log(res) // 1
+```
+
+### 8.`reduce()`
+
+#### a).求和计算
+
+```
+var arr = [1,2,3,4,5]
+var sum = arr.reduce((pre,next,index)=>{
+    return pre + next
+})
+console.log(sum) // 15
+
+计算过程：
+第一步 ： 1 + 2 = 3    // [3,3,4,5]
+第二步 ： 3 + 3 = 6    // [6,4,5]
+第三步 ： 6 + 4 = 10   // [10,5]
+第四步 ： 10 + 5 = 15  // [15]
+```
+
+#### b).扁平化数组(拼接数组)
+
+```
+var arr = [[1,2,3],[4,5],[6,7]]
+var newArr = arr.reduce((pre,next,index)=>{
+    return pre.concat(next)
+})
+console.log(newArr) // [1,2,3,4,5,6,7]
+```
+
+#### c).对象数组叠加计算
+
+```
+var arr = [
+    {price:10,count:1},
+	{price:15,count:2},
+	{price:20,count:3}
+]
+
+var sum = arr.reduce((pre,next,index)=>{
+    return pre + next.price * next.count
+},0)  // 重点！:添加这个0，是为了不改变原数组，切不可操作第一项(下标为0的pre是没有，所以加0)
+
+console.log(sum) // 100
+```
+
+#### d).应用计算数组中每个元素出现的次数(投票板)
+
+```
+var names = ["heqi", "Tom", "Bob", "Alice", "heqi"];
+
+var countedNames = names.reduce((object, name) => {
+    // object 对应下面的{},即定义的空对象,name则是上面数组循环出来的每一项的内容
+	console.log(object, "|", name); // 见下图
+	if (name in object) object[name]++;
+	else object[name] = 1;
+	return object;
+}, {}); // {} 的含义是 存到一个对象里(还可以是[])
+
+console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
+```
+
+![img](./image/img5.png)

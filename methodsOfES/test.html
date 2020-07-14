@@ -7,10 +7,9 @@
 	</head>
 	<body></body>
 	<script>
-		var arr = ["1", "", 0, false, "11"];
-		var res = arr.filter((item, index) => {
-			return item;
-		});
-		console.log(res);
+		var array = [1, 2];
+
+		var newArray = array.unshift(4); // 3
+		console.log(array); // [3,1,2]
 	</script>
 </html>
