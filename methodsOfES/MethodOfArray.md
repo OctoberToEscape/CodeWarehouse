@@ -54,7 +54,7 @@ var newArray = array.push(4) // [1,2,3,4]
 ```
 var array = [1,2,3]
 var newArray = array.pop() // 3
-conse.log(array) //[1,2]
+console.log(array) //[1,2]
 ```
 
 ### 5.`unshift()`
@@ -434,8 +434,8 @@ console.log(newArr) // [1,2,3,4,5,6,7]
 ```
 var arr = [
     {price:10,count:1},
-	{price:15,count:2},
-	{price:20,count:3}
+    {price:15,count:2},
+    {price:20,count:3}
 ]
 
 var sum = arr.reduce((pre,next,index)=>{
@@ -450,14 +450,13 @@ console.log(sum) // 100
 ```
 var names = ["heqi", "Tom", "Bob", "Alice", "heqi"];
 
-var countedNames = names.reduce((object, name) => {
-    // object 对应下面的{},即定义的空对象,name则是上面数组循环出来的每一项的内容
-	console.log(object, "|", name); // 见下图
-	if (name in object) object[name]++;
-	else object[name] = 1;
-	return object;
-}, {}); // {} 的含义是 存到一个对象里(还可以是[])
-
+var countedNames = names.reduce((object,name)=>{
+    //object 对应下面的{},即定义的空对象,name则是上面数组循环出来的每一项的内容
+    console.log(object,"|",name); //见下图
+    if(name in object) object[name]++;
+    else object[name] = 1;
+    return object
+},{}) // {} 的含义是 存到一个对象里(还可以是[])
 console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
 ```
 
