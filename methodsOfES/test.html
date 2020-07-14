@@ -7,8 +7,9 @@
 	</head>
 	<body></body>
 	<script>
-		var str = "hello world";
-		var unicode1 = str.charCodeAt(5); // 101
-		console.log(unicode1);
+		var str = "javaScript javascript";
+		var reg = /script/gi;
+		var arr = str.match(reg);
+		console.log(arr); // ["Script","script"]
 	</script>
 </html>
