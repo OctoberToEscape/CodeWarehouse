@@ -17,6 +17,7 @@
 |               | includes                  |
 |               | finde,findIndex           |
 |               | entries(),keys(),valuse() |
+|               | flat(),flatMap()          |
 
 ## 常用的数组的方法
 
@@ -248,7 +249,43 @@ var arr4 = [1,2,3,4,5,6,7,8]
 arr4.fill(10,-5,-2) [1,2,3,10,10,10,7,8]  -5则表示从左往右5个既下标3开始  -2则表示从左往右2个既下标6(不包含下标6)结束 的数值 换成 10
 ```
 
-## ES5 新增的数组遍历的方法：
+### 16.`flat(value)`
+
+数组的成员有时还是数组(多维数组)，`Array.prototype.flat()`用于将嵌套的数组“拉平”，变成一维的数组。**value=>扯平的层数,默认值是 1,如果葙不管多少层直接变成一维数组 value 设置成 Infinity 即可，该方法返回一个新数组，对原数据没有影响**。
+
+```
+var arr = [1,[2,3],[4,5]]
+var newArr = arr.flat() // [1,2,3,4,5]
+
+var arr = [1,2,3,[4,[5,6]]]
+var newArr1 = arr.flat()  // [1,2,3,4,[5,6]]
+var newArr2 = arr.flat(2) // [1,2,3,4,5,6]
+
+var arr = [1,[2,[3,[4,5]]]]
+var newArr = arr.flat(Infinity) // [1,2,3,4,5]
+
+var arr = [1,2,,4,5]
+var newArr = arr.flat() // [1,2,4,5] // 如果数组有空位，则会跳过空位
+```
+
+### 17.`flatMap()`
+
+方法对原数组的每个成员执行一个函数（相当于执行 `Array.prototype.map()`），然后对返回值组成的数组执行 `flat()`方法。**该方法返回一个新数组，不改变原数组**。
+
+```
+var arr = [1,2,3,4,5]
+var newArr = arr.flatMap((x)=>[x,x * 5])
+//相当于 [[1,5],[2,10],[3,15],[4,20],[5,20]].flat()
+console.log(newArr) // [1,5,2,10,3,15,4,20,5,25]
+
+//flatMap()只能展开一层数组
+var arr = [[[2]],[[3]],[[4]],[[5]]]
+var newArr1 = arr.flatMap((x)=>[[x * 2]]) //[[4],[6],[8],[10]]
+//想变成一维数组写法
+var newArr2 = arr.flatMap((x)=>[x * 2]) // [4,6,8,10]
+```
+
+## 常用的数组遍历的方法：
 
 ### 1.`forEach(item,index,arr)`
 
@@ -461,3 +498,38 @@ console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
 ```
 
 ![img](./image/img5.png)
+
+### 9.`includes(value,start)`
+
+判断一个数组是否包含一个指定的值，根据情况。ES6 `indexOf()` 方法对比此方法,对比此方法有此处缺点因为 `indexOf()` 内部通过严格的 === 进行判断,对导致对 NAN 的误判 [NaN].indexOf(NaN) // -1。返回布尔值。**value=>查询的值，start=>开始搜索的起始下标，默认为 0**
+
+```
+var arr = [1,3,5,2,"8",-0,NaN]
+arr.includes(1) // true
+arr includes(1,2) // false 该方法的第二个参数表示搜索的起始位置，默认为0
+arr.includes("1"); // false
+arr.includes(NaN); // true
+arr.includes(+0); // true
+```
+
+### 10.`for...of`
+
+遍历数组元素值
+
+```
+var arr = ["Vue","React","Node","Angular"]
+for(var item of arr){
+    console.log(item) // Vue , React , Node , Angular
+}
+```
+
+### 11.`for...in`
+
+遍历数组的索引
+
+```
+var arr = ["Vue","React","Node","Angular"]
+for(var item in arr){
+    console.log(arr[item]) // Vue , React , Node , Angular
+}
+```

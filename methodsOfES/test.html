@@ -7,9 +7,14 @@
 	</head>
 	<body></body>
 	<script>
-		var array = [1, 2, 3];
-		var newArray = array.pop(); // 3
-		console.log(newArray)
-		console.log(array); //[1,2]
+		var arr = ["angular", "Vue", "nodejs", "recat"];
+
+		for (var index in arr) {
+			console.log("第二种遍历方式\t" + arr[index]);
+		}
+
+		for (var ele of arr) {
+			console.log("第四种遍历方式\t" + ele);
+		}
 	</script>
 </html>
