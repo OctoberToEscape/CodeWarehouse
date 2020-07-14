@@ -497,7 +497,7 @@ var countedNames = names.reduce((object,name)=>{
 console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
 ```
 
-![img](./image/img5.png)
+![img](https://raw.githubusercontent.com/OctoberToEscape/CodeWarehouse/master/methodsOfES/image/img5.png)
 
 ### 9.`includes(value,start)`
 
