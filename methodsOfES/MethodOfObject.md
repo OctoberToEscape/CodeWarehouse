@@ -74,7 +74,7 @@ console.log(Object.getOwnPropertyDescriptor(object,"bar"))
 打印结果如下图所示
 ```
 
-![img](https://raw.githubusercontent.com/OctoberToEscape/CodeWarehouse/master/methodsOfES/image/img4.png)
+![img4.png](https://i.loli.net/2020/07/14/lDq4GXAYj7Fu3RV.png)
 
 ### 3.`Object.defineProperty( obj, prop, decriptor)`
 
@@ -259,7 +259,7 @@ console.log(Object.getOwnPropertyDescriptors(object))
 得到的结果如下图
 ```
 
-![img](https://raw.githubusercontent.com/OctoberToEscape/CodeWarehouse/master/methodsOfES/image/img1.png)
+![img1.png](https://i.loli.net/2020/07/14/d4ac5l9rhzULZ1V.png)
 
 **该方法的引入主要是为了解决 `Object.assign()`无法正确拷贝 get 属性和 set 属性的问题,我们来举个例子**
 
@@ -279,7 +279,7 @@ console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
 得到的结果如下图
 ```
 
-![img](https://raw.githubusercontent.com/OctoberToEscape/CodeWarehouse/master/methodsOfES/image/img2.png)
+![img2.png](https://i.loli.net/2020/07/14/21PUFehdpZOcoRQ.png)
 
 **上面代码中，object 对象的 foo 属性的值是一个赋值函数，`Object.assign` 方法将这个属性拷贝给 target 对象，结果该属性的值变成了 undefined。这是因为 `Object.assign` 方法总是拷贝一个属性的值，而不会拷贝它背后的赋值方法或取值方法。** **_这个时候`Object.getOwnPropertyDescriptors()`方法配合`Object.defineProperties()`方法，就可以实现正确拷贝_**。
 
@@ -299,7 +299,7 @@ console.log(Object.getOwnPropertyDescriptor(target, 'foo'))
 得到结果如下图
 ```
 
-![img](https://raw.githubusercontent.com/OctoberToEscape/CodeWarehouse/master/methodsOfES/image/img3.png)
+![img3.png](https://i.loli.net/2020/07/14/IQboMN1WTnRv5tg.png)
 
 ---
 
