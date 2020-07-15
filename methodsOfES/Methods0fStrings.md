@@ -140,4 +140,43 @@ console.log(arr); // ["Script","script"]
 
 ## ES6 新增的字符串的方法
 
-### 1.`includes()`
+### 1.`includes(value,start)`
+
+查找字符串中是否含有某个字符,**有返回 true,没有返回 false。value=>需要查找的字符,start 起始位置,不写则从首位开始。**
+
+```
+var str = "javaScript";
+str.includes("w");        // false
+str.includes("Script");   // true
+str.includes("Script",5); // false
+```
+
+### 2.`startsWith(value,start)`
+
+查询字符串是以特定字符开头。**返回值，是的话返回 true，不是的话返回 false。value=>需要查找的字符，start=>查找起始位置`往后找`，不写则从首位开始`往后找`。**
+
+```
+var str = "javaScript";
+str.startsWith("java"); // true
+str.startsWith("php");  // false
+str.startsWith("S",4);  // true
+```
+
+### 3.`endsWith(value,start)`
+
+查询字符串是以特定字符结尾。**返回值，是的话返回 true，不是的话返回 false。value=>需要查找的字符，start=>开始查找的位置`往前找`(不包含 start)，不写则从最后以为`往前找`。**
+
+```
+var str = "javaScript";
+str.endsWith("pt"); // true
+str.endsWith("go"); // false
+str.endsWith("va",4); // true
+```
+
+### 4.`padStart(maxLength,value)`
+
+用做字符串的头部补全，返回补全后的字符串。**maxLength=>补全后最大的字符串长度，value=>补全的字符。** **_如果 maxLength 小于原字符串长度，则会返回原字符串_，如果不写 value 则会用空格代替**
+
+```
+var str = "javaScript";
+```

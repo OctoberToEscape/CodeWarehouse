@@ -62,7 +62,7 @@ console.log(Object.keys(people)) // ["name","age","gender","toString"]
 `Object.getOwnPropertyDescriptor(obj,prop)`返回一个指定对象上的自有属性对应的属性描述 （自由属性指，直接赋值的属性，不需要从原型上查找的属性)。**obj=>需要查找的目标对象 prop=>目标对象内的属性名称** **_`注意事项：ES5 第一个参数不是对象，就会产生 TypeError, ES2015(ES6) 第一个参数不是对象的话，就会被强制转换成对象`_**
 
 ```
-var objeect = {
+var object = {
     a : 1,
     b : 2,
     get bar (){

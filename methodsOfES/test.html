@@ -7,9 +7,9 @@
 	</head>
 	<body></body>
 	<script>
-		var str = "javaScript javascript";
-		var reg = /script/gi;
-		var arr = str.match(reg);
-		console.log(arr); // ["Script","script"]
+		var str = "javaScript";
+		console.log(str.endsWith("pt")); // true
+		console.log(str.endsWith("go")); // false
+		console.log(str.endsWith("va", 4)); // true
 	</script>
 </html>
