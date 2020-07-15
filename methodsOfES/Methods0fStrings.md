@@ -133,7 +133,7 @@ console.log(newStr); // ja**Script
 var str = "javaScript javascript";
 var reg = /script/gi;
 var arr = str.match(reg);
-console.log(arr); // ["Script","script"]
+console.log(arr); //["Script","script"]
 ```
 
 ---

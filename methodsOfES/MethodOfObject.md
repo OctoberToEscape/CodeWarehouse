@@ -28,14 +28,14 @@ Object.keys(object).map((key, item) => {
 
 ```js
 var string = "abcdefg";
-console.log(Object.keys(string)); //[0,1,2,3,4,5,6]
+console.log(Object.keys(string)); // [0,1,2,3,4,5,6]
 ```
 
 #### c.传入数组，返回索引
 
 ```js
 var array = ["a", "b", "c"];
-console.log(Object.keys(array)); //["0","1","2"]
+console.log(Object.keys(array)); // ["0","1","2"]
 ```
 
 #### d.传入构造函数，返回空数组或者属性名
