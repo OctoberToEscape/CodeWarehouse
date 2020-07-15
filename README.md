@@ -6,4 +6,6 @@
 
 > [3.字符串的常用方法总结](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/methodsOfES/Methods0fStrings.md)
 
-> [4.常用的正则方法总结](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/methodsOfES/validation.ts)
+> [4.常用的正则方法总结](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/validation.ts)
+
+> [5.一些常用的业务封装函数](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/common.ts)
