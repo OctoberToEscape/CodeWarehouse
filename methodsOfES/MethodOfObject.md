@@ -78,17 +78,17 @@ console.log(Object.getOwnPropertyDescriptor(object, "bar"));
 
 ### 3.`Object.defineProperty( obj, prop, decriptor)`
 
-`Object.defineProperty( obj, prop, decriptor)` 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。如果不指定 configurable, writable, enumerable ，则这些属性默认值为 false，如果不指定 value, get, set，则这些属性默认值为 undefined。**obj=>要在其上定义属性的对象,prop=>要定义或修改的属性名称,decriptor=>将被定义或修改的属性描述符**
+`Object.defineProperty( obj, prop, decriptor)`方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。如果不指定 configurable, writable, enumerable ，则这些属性默认值为 false，如果不指定 value, get, set，则这些属性默认值为 undefined。**obj=>要在其上定义属性的对象,prop=>要定义或修改的属性名称,decriptor=>将被定义或修改的属性描述符**
 
 ```js
-var obj = {}
-Object.defineProperty(obj,'name'{
-    configurable : true,
-    writable : true,
-    enumerable : true,
-    value : "heqi"
-})
-console.log(obj.name) // heqi
+var obj = {};
+Object.defineProperty(obj, "name", {
+	configurable: true,
+	writable: true,
+	enumerable: true,
+	value: "heqi",
+});
+console.log(obj.name); // heqi
 ```
 
 ### 4.`Object.defineProperties(obj,prop)`
