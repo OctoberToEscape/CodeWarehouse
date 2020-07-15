@@ -28,7 +28,7 @@ var newStr = str.toUpperCase(); // HELLO WORLD
 var str = "hello world";
 var newStr1 = str.charAt(2); // l
 var newStr2 = str.charAt(5); // `空格`  空格也算一个字符
-var newStr3 = str,charAt(100); // 空
+var newStr3 = str.charAt(100); // 空
 ```
 
 ### 4.`charCodeAt(index)`
@@ -136,6 +136,17 @@ var arr = str.match(reg);
 console.log(arr); //["Script","script"]
 ```
 
+### 13.`trim()`
+
+消除字符串前后的空格
+
+```js
+var str = " javaScript ";
+console.log(str.length); // 12
+str.trim(); // "javaScript"
+str.trim().length; // 10
+```
+
 ---
 
 ## ES6 新增的字符串的方法
@@ -173,10 +184,56 @@ str.endsWith("go"); // false
 str.endsWith("va", 4); // true
 ```
 
-### 4.`padStart(maxLength,value)`
+---
+
+## ES8 新增的字符串的方法
+
+### 1.`padStart(maxLength,value)`
 
 用做字符串的头部补全，返回补全后的字符串。**maxLength=>补全后最大的字符串长度，value=>补全的字符。** **_如果 maxLength 小于原字符串长度，则会返回原字符串_，如果不写 value 则会用空格代替**
 
 ```js
 var str = "javaScript";
+str.padStart(10, "php"); // "javaScript"
+str.padStart(11); // " javaScript"  前面多了个空格
+str.padStart(12, "php"); // "phjavaScript"  如果拼接过后的长度大于maxLength,优先保留原有的，截取拼接的
+str.padStart(13, "php"); // "phpjavaScript"
+```
+
+### 2.`padEnd(maxLength,value)`
+
+用做字符串的尾部补全，返回补全后的字符串。**maxLength=>补全后最大的字符串长度，value=>补全的字符。** **_如果 maxLength 小于原字符串长度，则会返回原字符串_，如果不写 value 则会用空格代替**
+
+```js
+var str = "javaScript";
+str.padEnd(10, "php"); // "javaScript"
+str.padEnd(11); // "javaScript "  后面多了个空格
+str.padEnd(12, "php"); // "javaScriptph"  如果拼接过后的长度大于maxLength,优先保留原有的，截取拼接的
+str.padEnd(13, "php"); // "javaScriptphp"
+```
+
+---
+
+## ES10 新增的字符串的方法
+
+### 1.`trimStart()` 别名 `trimLeft()`
+
+清除字符串前面(左侧)的空格
+
+```js
+var str = " javaString   ";
+console.log(str.length); // 14
+str.trimStart(); // "javaScript   "
+str.trimStart().length; // 13
+```
+
+### 2.`trimEnd()` 别名 `trimEnd()`
+
+清除字符串后面(右侧)的空格
+
+```js
+var str = " javaString   ";
+console.log(str.length); // 14
+str.trimEnd(); // " javaScript"
+str.trimEnd().length; // 11
 ```
