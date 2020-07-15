@@ -10,17 +10,17 @@
 
 ```js
 var object = {
-	a: 1,
-	b: 2,
-	c: 3,
-	d: 4,
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
 };
 
 console.log(Object.keys(object)); //["a","b","c","d"]
 
 Object.keys(object).map((key, item) => {
-	console.log(key, object[key]);
-	//key=>属性名  object[key]=>属性值
+    console.log(key, object[key]);
+    //key=>属性名  object[key]=>属性值
 });
 ```
 
@@ -42,12 +42,12 @@ console.log(Object.keys(array)); // ["0","1","2"]
 
 ```js
 const Person = (name, age, gender) => {
-	this.name = name;
-	this.age = age;
-	this.gender = gender;
-	this.toString = function () {
-		return this.name + "," + this.age + "," + this.gender;
-	};
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.toString = function () {
+        return this.name + "," + this.age + "," + this.gender;
+    };
 };
 
 console.log(Object.keys(Person)); // []
@@ -63,11 +63,11 @@ console.log(Object.keys(people)); // ["name","age","gender","toString"]
 
 ```js
 var object = {
-	a: 1,
-	b: 2,
-	get bar() {
-		return "heqi";
-	},
+    a: 1,
+    b: 2,
+    get bar() {
+        return "heqi";
+    },
 };
 console.log(Object.getOwnPropertyDescriptor(object, "bar"));
 
@@ -83,10 +83,10 @@ console.log(Object.getOwnPropertyDescriptor(object, "bar"));
 ```js
 var obj = {};
 Object.defineProperty(obj, "name", {
-	configurable: true,
-	writable: true,
-	enumerable: true,
-	value: "heqi",
+    configurable: true,
+    writable: true,
+    enumerable: true,
+    value: "heqi",
 });
 console.log(obj.name); // heqi
 ```
@@ -97,16 +97,16 @@ console.log(obj.name); // heqi
 
 ```js
 var object = {
-	name: {
-		configurable: true,
-		writable: true,
-		enumerable: true,
-		value: "heqi",
-	},
-	age: {
-		value: 24,
-		configurable: true,
-	},
+    name: {
+        configurable: true,
+        writable: true,
+        enumerable: true,
+        value: "heqi",
+    },
+    age: {
+        value: 24,
+        configurable: true,
+    },
 };
 
 console.log(object.name, object.age); // heqi , 24
@@ -128,17 +128,17 @@ Object.prototype.enumerable; //是否可枚举属性；默认为false
 Object.prototype.configurable; //是否可修改属性的特性；默认为false
 
 var parent = {
-	a: 1,
-	b: 2,
+    a: 1,
+    b: 2,
 };
 
 var son = Object.create(parent, {
-	c: {
-		// c会成为创建对象的属性
-		writable: true,
-		configurable: true,
-		value: 3,
-	},
+    c: {
+        // c会成为创建对象的属性
+        writable: true,
+        configurable: true,
+        value: 3,
+    },
 });
 
 console.log(son); // {c : 3}
@@ -172,9 +172,9 @@ console.log(Object.is(5, "5")); // false
 
 ```js
 var object = {
-	name: "heqi",
-	age: 24,
-	friends: ["张三", "李四"],
+    name: "heqi",
+    age: 24,
+    friends: ["张三", "李四"],
 };
 
 var newObject = {};
@@ -211,15 +211,15 @@ ES5 引入了 `Object.keys()` 方法,返回一个数组,成员是参数对象自
 
 ```js
 var object = {
-	a: 1,
-	b: 2,
+    a: 1,
+    b: 2,
 };
 Object.values(object); //[1,2]
 
 var object = {
-	90: "a",
-	20: "b",
-	50: "c",
+    90: "a",
+    20: "b",
+    50: "c",
 };
 Object.values(object); //["b","c","a"]
 ```
@@ -230,15 +230,15 @@ Object.values(object); //["b","c","a"]
 
 ```js
 var object = {
-	a: 1,
-	b: 2,
+    a: 1,
+    b: 2,
 };
 Object.entries(object); // [["a",1],["b",2]]
 
 var object = {
-	90: "a",
-	20: "b",
-	50: "c",
+    90: "a",
+    20: "b",
+    50: "c",
 };
 Object.entries(object); // [["20","b"],["50","c"],["90","a"]]
 ```
@@ -249,10 +249,10 @@ ES5 的 `Object.getOwnPropertyDescriptor()`方法会返回某个对象属性的�
 
 ```js
 var object = {
-	name: "heqi",
-	get age() {
-		return 24;
-	},
+    name: "heqi",
+    get age() {
+        return 24;
+    },
 };
 console.log(Object.getOwnPropertyDescriptors(object));
 
@@ -266,12 +266,12 @@ console.log(Object.getOwnPropertyDescriptors(object));
 ```js
 var target = {};
 var object = {
-	set foo(val) {
-		console.log(val);
-	},
-	get bar() {
-		return "heqi";
-	},
+    set foo(val) {
+        console.log(val);
+    },
+    get bar() {
+        return "heqi";
+    },
 };
 Object.assign(target, object);
 console.log(Object.getOwnPropertyDescriptor(target, "foo"));
@@ -286,12 +286,12 @@ console.log(Object.getOwnPropertyDescriptor(target, "foo"));
 ```js
 var target = {};
 var object = {
-	set foo(val) {
-		console.log(val);
-	},
-	get bar() {
-		return "heqi";
-	},
+    set foo(val) {
+        console.log(val);
+    },
+    get bar() {
+        return "heqi";
+    },
 };
 Object.defineProperties(target, Object.getOwnPropertyDescriptors(object));
 console.log(Object.getOwnPropertyDescriptor(target, "foo"));
@@ -311,8 +311,8 @@ console.log(Object.getOwnPropertyDescriptor(target, "foo"));
 
 ```js
 var object = {
-	a: 1,
-	b: 2,
+    a: 1,
+    b: 2,
 };
 
 const arr = Object.entries(object); // [["a","1"],["b","2"]]

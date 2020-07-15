@@ -103,12 +103,12 @@ arr.sort(); // [1,122,2,23,3,34,4,5]
 
 //从小到大排序
 array.sort((a, b) => {
-	return a - b; // [1, 2, 3, 4, 5, 23, 34, 122]
+    return a - b; // [1, 2, 3, 4, 5, 23, 34, 122]
 });
 
 //从大到小排序
 arr.sort((a, b) => {
-	return b - a; //[122, 34, 23, 5, 4, 3, 2, 1]
+    return b - a; //[122, 34, 23, 5, 4, 3, 2, 1]
 });
 ```
 
@@ -294,7 +294,7 @@ var newArr2 = arr.flatMap((x) => [x * 2]); // [4,6,8,10]
 ```js
 var arr = [1, 2, 3, 4];
 arr.forEach((item, index) => {
-	// doing...
+    // doing...
 });
 ```
 
@@ -306,11 +306,11 @@ arr.forEach((item, index) => {
 var arr = [1, 2, 3, 4, 5, 6];
 
 var res1 = arr.map((item, index) => {
-	return item * 2;
+    return item * 2;
 });
 
 var res2 = arr.forEach((item, index) => {
-	return item * 2;
+    return item * 2;
 });
 
 console.log(res1); // [2,4,6,8,10,12]
@@ -325,14 +325,14 @@ console.log(res2); // undefined
 //常规过滤;
 var arr = [1, 2, 3, 4, 5, 6];
 var res = arr.filter((item, index) => {
-	return item % 2 === 0;
+    return item % 2 === 0;
 });
 console.log(res); // [2,4,6]
 
 //过滤出布尔类型;
 var arr = ["1", "", 0, false, "11"];
 var res = arr.filter((item, index) => {
-	return item;
+    return item;
 });
 console.log(res); // ["1", "11"]
 ```
@@ -343,29 +343,29 @@ console.log(res); // ["1", "11"]
 
 ```js
 var arr = [
-	{
-		name: "heqi",
-		age: 24,
-	},
-	{
-		name: "javascript",
-		age: 50,
-		done: true,
-	},
-	{
-		name: "java",
-		age: 70,
-		done: false,
-	},
+    {
+        name: "heqi",
+        age: 24,
+    },
+    {
+        name: "javascript",
+        age: 50,
+        done: true,
+    },
+    {
+        name: "java",
+        age: 70,
+        done: false,
+    },
 ];
 
 var res1 = arr.some((item) => {
-	return item.done;
+    return item.done;
 });
 console.log(res1); // true
 
 var res2 = arr.some((item) => {
-	return item.home;
+    return item.home;
 });
 console.log(res2); // false
 ```
@@ -376,29 +376,29 @@ console.log(res2); // false
 
 ```js
 var arr = [
-	{
-		name: "heqi",
-		age: 24,
-	},
-	{
-		name: "javascript",
-		age: 50,
-		done: true,
-	},
-	{
-		name: "java",
-		age: 70,
-		done: false,
-	},
+    {
+        name: "heqi",
+        age: 24,
+    },
+    {
+        name: "javascript",
+        age: 50,
+        done: true,
+    },
+    {
+        name: "java",
+        age: 70,
+        done: false,
+    },
 ];
 
 var res1 = arr.every((item) => {
-	return item.age;
+    return item.age;
 });
 console.log(res1); // true
 
 var res2 = arr.every((item) => {
-	return item.done;
+    return item.done;
 });
 console.log(res2); // false
 ```
@@ -409,13 +409,13 @@ console.log(res2); // false
 
 ```js
 var arr = [
-	{ id: 1, name: "heqi", done: false },
-	{ id: 2, name: "javascript", done: true },
-	{ id: 3, name: "java", done: true },
+    { id: 1, name: "heqi", done: false },
+    { id: 2, name: "javascript", done: true },
+    { id: 3, name: "java", done: true },
 ];
 
 var res = arr.find((item) => {
-	return item.done;
+    return item.done;
 });
 console.log(res); // {id: 2, name: "javascript", done: true}
 ```
@@ -426,13 +426,13 @@ console.log(res); // {id: 2, name: "javascript", done: true}
 
 ```js
 var arr = [
-	{ id: 1, name: "heqi", done: false },
-	{ id: 2, name: "javascript", done: true },
-	{ id: 3, name: "java", done: true },
+    { id: 1, name: "heqi", done: false },
+    { id: 2, name: "javascript", done: true },
+    { id: 3, name: "java", done: true },
 ];
 
 var res = arr.findIndex((item) => {
-	return item.done;
+    return item.done;
 });
 console.log(res); // 1
 ```
@@ -444,11 +444,11 @@ console.log(res); // 1
 ```js
 var arr = [1, 2, 3, 4, 5];
 var sum = arr.reduce((pre, next, index) => {
-	return pre + next;
+    return pre + next;
 });
 console.log(sum); // 15
 
-/* 
+/*
     计算过程：
     第一步 ： 1 + 2 = 3    // [3,3,4,5]
     第二步 ： 3 + 3 = 6    // [6,4,5]
@@ -461,12 +461,12 @@ console.log(sum); // 15
 
 ```js
 var arr = [
-	[1, 2, 3],
-	[4, 5],
-	[6, 7],
+    [1, 2, 3],
+    [4, 5],
+    [6, 7],
 ];
 var newArr = arr.reduce((pre, next, index) => {
-	return pre.concat(next);
+    return pre.concat(next);
 });
 console.log(newArr); // [1,2,3,4,5,6,7]
 ```
@@ -475,13 +475,13 @@ console.log(newArr); // [1,2,3,4,5,6,7]
 
 ```js
 var arr = [
-	{ price: 10, count: 1 },
-	{ price: 15, count: 2 },
-	{ price: 20, count: 3 },
+    { price: 10, count: 1 },
+    { price: 15, count: 2 },
+    { price: 20, count: 3 },
 ];
 
 var sum = arr.reduce((pre, next, index) => {
-	return pre + next.price * next.count;
+    return pre + next.price * next.count;
 }, 0); // 重点！:添加这个0，是为了不改变原数组，切不可操作第一项(下标为0的pre是没有，所以加0)
 
 console.log(sum); // 100
@@ -493,11 +493,11 @@ console.log(sum); // 100
 var names = ["heqi", "Tom", "Bob", "Alice", "heqi"];
 
 var countedNames = names.reduce((object, name) => {
-	//object 对应下面的{},即定义的空对象,name则是上面数组循环出来的每一项的内容
-	console.log(object, "|", name); //见下图
-	if (name in object) object[name]++;
-	else object[name] = 1;
-	return object;
+    //object 对应下面的{},即定义的空对象,name则是上面数组循环出来的每一项的内容
+    console.log(object, "|", name); //见下图
+    if (name in object) object[name]++;
+    else object[name] = 1;
+    return object;
 }, {}); // {} 的含义是 存到一个对象里(还可以是[])
 console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
 ```
@@ -509,9 +509,9 @@ console.log(countedNames); // {heqi: 2, Tom: 1, Bob: 1, Alice: 1}
 判断一个数组是否包含一个指定的值，根据情况。ES6 `indexOf()` 方法对比此方法,对比此方法有此处缺点因为 `indexOf()` 内部通过严格的 === 进行判断,对导致对 NAN 的误判 [NaN].indexOf(NaN) // -1。返回布尔值。**value=>查询的值，start=>开始搜索的起始下标，默认为 0**
 
 ```js
-var arr = [1,3,5,2,"8",-0,NaN]
-arr.includes(1) // true
-arr includes(1,2) // false 该方法的第二个参数表示搜索的起始位置，默认为0
+var arr = [1, 3, 5, 2, "8", -0, NaN];
+arr.includes(1); // true
+arr.includes(1, 2); // false 该方法的第二个参数表示搜索的起始位置，默认为0
 arr.includes("1"); // false
 arr.includes(NaN); // true
 arr.includes(+0); // true
@@ -524,7 +524,7 @@ arr.includes(+0); // true
 ```js
 var arr = ["Vue", "React", "Node", "Angular"];
 for (var item of arr) {
-	console.log(item); // Vue , React , Node , Angular
+    console.log(item); // Vue , React , Node , Angular
 }
 ```
 
@@ -535,6 +535,6 @@ for (var item of arr) {
 ```js
 var arr = ["Vue", "React", "Node", "Angular"];
 for (var item in arr) {
-	console.log(arr[item]); // Vue , React , Node , Angular
+    console.log(arr[item]); // Vue , React , Node , Angular
 }
 ```
