@@ -14,3 +14,16 @@ export const realFormatSecond = (second: number): string => {
         return "00:00";
     }
 };
+
+//节流函数
+export const throttle = (func: Function, wait: number): Function => {
+    let s = 0;
+    return function () {
+        let now = +new Date();
+        let context = this;
+        if (now - s >= wait) {
+            func.apply(context, arguments);
+            s = now;
+        }
+    };
+};
