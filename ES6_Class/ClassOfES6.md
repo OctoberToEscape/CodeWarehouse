@@ -55,3 +55,39 @@ class Foo {
 var foo = new Foo();
 foo.toString(); // heqi
 ```
+
+构造函数的`prototype`属性，在 ES6 的类上面继续存在。实际上类的所有方法都定义在构造函数的`prototype`上面。
+
+```js
+class Foo {
+    constructor() {
+        //...
+    }
+    toString() {
+        //...
+    }
+    toValue() {
+        //...
+    }
+}
+
+console.log(Foo.prototype); //见下图
+
+//等同于
+Foo.prototype = {
+    toString() {},
+    toValue() {},
+};
+```
+
+![img1.png](https://i.loli.net/2020/07/17/8fhkOvU1QAdCGyM.jpg)
+
+在类的实例上调用方法，其实就是在调用原型上面的方法
+
+```js
+class A {}
+var b = new A();
+b.constructor === A.prototype.constructor; // true
+```
+
+上面的代码中 b 是 A 类的实例，b 的 constructor 方法就是 A 类原型的 constructor 方法。

@@ -10,4 +10,4 @@
 
 > [5.一些常用的业务封装函数](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/common.ts)
 
-> [6.ES6 之面向对象 class 的理解]()
+> [6.ES6 之面向对象 class 的理解](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/ES6_Class/ClassOfES6.md)

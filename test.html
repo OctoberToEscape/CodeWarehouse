@@ -5,15 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
     </head>
-
     <body></body>
     <script>
-        class Foo {
-            toString() {
-                return "heqi";
-            }
-        }
-        var foo = new Foo();
-        console.log(foo.toString()); // heqi
+        class a {}
+        var b = new a();
+        console.log(a.prototype.constructor === b.constructor);
     </script>
 </html>
