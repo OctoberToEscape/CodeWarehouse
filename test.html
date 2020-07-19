@@ -7,8 +7,16 @@
     </head>
     <body></body>
     <script>
-        class a {}
-        var b = new a();
-        console.log(a.prototype.constructor === b.constructor);
+        const methodName = "toString";
+        class Point {
+            constructor() {
+                //...
+            }
+
+            [methodName]() {
+                //....
+            }
+        }
+        console.log(Point.prototype);
     </script>
 </html>

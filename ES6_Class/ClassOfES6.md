@@ -91,3 +91,83 @@ b.constructor === A.prototype.constructor; // true
 ```
 
 上面的代码中 b 是 A 类的实例，b 的 constructor 方法就是 A 类原型的 constructor 方法。
+
+由于类的方法都是定义到 prototype 对象的上面，所以新的方法可以添加到 prototype 上。一般`Object.assign()`可以很方便的添加多个方法。
+
+```js
+class Point {
+    constructor() {
+        // ...
+    }
+}
+//未添加见下图a
+
+//想要给Point类添加方法一般
+Object.assign(Point.prototype, {
+    //方法名
+    toString() {},
+    toValue() {},
+});
+//添加后见下图b
+```
+
+-   图 a (原始的 Point)
+    ![img2.png](https://i.loli.net/2020/07/19/sHTa9JNc5q8rEZP.jpg)
+-   图 b (经过添加方法过后的 Point)
+    ![img3.png](https://i.loli.net/2020/07/19/UxD8ZOm3APS6EnV.jpg)
+
+所有，在类的**内部所有定义的方法，都不可以枚举**，这于 ES5 的构造函数不一样
+
+```js
+// ES6 Class
+class Point {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    toString() {
+        // ...
+    }
+}
+Object.keys(Point.prototype); // 枚举为 []
+Object.getOwnPropertyNames(Point.prototype); // ["constructor","toString"]
+
+// ES5 构造函数
+var Point = function (name, age) {
+    this.name = name;
+    this.age = age;
+};
+Point.prototype.toString = function () {
+    //...
+};
+Object.keys(Point.prototype); // 枚举为 ["toString"]
+Object.getOwnPropertyNames(Point.prototype); // ["constructor","toString"]
+```
+
+类的实例方法名可以用表达式表明
+
+```js
+const methodName = "toString";
+class Point {
+    constructor() {
+        //...
+    }
+
+    [methodName]() {
+        //....
+    }
+}
+
+//等同于
+
+class Point {
+    constructor() {
+        //...
+    }
+
+    toString() {
+        //....
+    }
+}
+```
