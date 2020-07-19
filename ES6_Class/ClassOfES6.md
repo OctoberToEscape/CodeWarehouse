@@ -171,3 +171,48 @@ class Point {
     }
 }
 ```
+
+## 类的 constructor 方法
+
+constructor 是类的默认的方法，通过 new 生成实例对象的时候，自动调用该方法，**一个类是必须存在 constructor 方法的**，如果没有自己自己定义，则会自动生成一个空的 constructor 方法**_constructor(){}_**
+
+```js
+class Point {}
+//等同于
+class Point {
+    constructor() {}
+}
+```
+
+`constructor`默认返回实例对象(即 this),也完全可以返回一个指定的其他对象。
+
+```js
+class Point {
+    constructor() {
+        return this;
+    }
+}
+var where = new Point();
+console.log(where); // Point{} this指向这个实例
+new Point() instanceof Point; // true
+
+class Point {
+    constructor() {
+        return Object.create(
+            {},
+            {
+                a: {
+                    value: 1,
+                    writable: true,
+                    configurable: true,
+                },
+            }
+        );
+    }
+}
+var obj = new Point();
+console.log(obj); // {a:1}
+new Point() instanceof Point; // false
+```
+
+**通过`new Point() instanceof Point`返回说明了，如果`constructor`返回了一个全新的对象，那么返回的实例对象不是该类的实例**

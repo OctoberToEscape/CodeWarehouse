@@ -7,16 +7,13 @@
     </head>
     <body></body>
     <script>
-        const methodName = "toString";
         class Point {
             constructor() {
-                //...
-            }
-
-            [methodName]() {
-                //....
+                return this;
             }
         }
-        console.log(Point.prototype);
+        var where = new Point();
+        console.log(new Point() instanceof Point); // Point{} this指向这个实例
+        ;
     </script>
 </html>
