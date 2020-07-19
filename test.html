@@ -7,13 +7,18 @@
     </head>
     <body></body>
     <script>
-        class Point {
-            constructor() {
-                return this;
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            //实例方法
+            toString() {
+                return "我的名字是" + this.name + ",我今年" + this.age + "岁了";
             }
         }
-        var where = new Point();
-        console.log(new Point() instanceof Point); // Point{} this指向这个实例
-        ;
+        var person = new Person("heqi", 24);
+        console.log(person.hasOwnProperty("name"));
     </script>
 </html>
