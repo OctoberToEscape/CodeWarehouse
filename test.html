@@ -12,13 +12,17 @@
                 this.name = name;
                 this.age = age;
             }
-
-            //实例方法
-            toString() {
-                return "我的名字是" + this.name + ",我今年" + this.age + "岁了";
-            }
         }
-        var person = new Person("heqi", 24);
-        console.log(person.hasOwnProperty("name"));
+        var oA = new Person("heqi", 24);
+        var oB = new Person("java", 77);
+        var oC = new Person("php", 88);
+
+        oA.__proto__.gender = function () {
+            return "men";
+        };
+
+        oA.gender(); // "men"
+        oB.gender(); // "men"
+        oC.gender(); // "men"
     </script>
 </html>
