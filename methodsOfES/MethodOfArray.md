@@ -206,9 +206,9 @@ console.log(arr.indexOf(3, 3)); // -1
 console.log(arr.indexOf(5)); // 4
 ```
 
-### 13.`lastIndexOf(ele,fromIndex)`
+### 13.`lastIndexOf(ele,endIndex)`
 
-到 下标为 fromIndex **(非必填项)** 开始查找 ele 最后一次出现的下标, 如果存在返回最后次出现下标,不存在返回-1
+到 下标为 endIndex **(非必填项)** 开始查找 ele 最后一次出现的下标, 如果存在返回最后次出现下标,不存在返回-1
 
 ```js
 var array = [1, 2, 3, 4, 5, 6, 1, 9, 12, 11, 12];
