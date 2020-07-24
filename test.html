@@ -6,25 +6,5 @@
         <title>Document</title>
     </head>
     <body></body>
-    <script>
-        const person = (() => {
-            let _number = Symbol("getNumber");
-            class Foo {
-                constructor(name, age, number) {
-                    this.name = name;
-                    this.age = age;
-                    //私有属性
-                    this[_number] = number;
-                }
-                get getNumber() {
-                    return this[_number];
-                }
-            }
-            return person;
-        })();
-
-        var o = new person("heqi", 24, 18888888888);
-        console.log(o._number);
-        console.log(o.getNumber);
-    </script>
+    <script></script>
 </html>
