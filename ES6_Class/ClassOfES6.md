@@ -172,6 +172,8 @@ class Point {
 }
 ```
 
+---
+
 ## 类的 constructor 方法
 
 constructor 是类的默认的方法，通过 new 生成实例对象的时候，自动调用该方法，**一个类是必须存在 constructor 方法的**，如果没有自己自己定义，则会自动生成一个空的 constructor 方法**_constructor(){}_**
@@ -279,3 +281,25 @@ oC.gender(); // "men"
 ```
 
 上面代码在 oA 的原型上添加了一个 gender 方法，由于 oA 的原型就是 oB,oC 的原型，因此 oB,oC 也可以调用这个方法。这意味着，使用实例的`__proto__`属性改写原型，必须相当谨慎，不推荐使用，因为这会改变 Class 的原始定义，影响到所有实例。
+
+---
+
+## 不存在变量提升
+
+class 类不存在变量提升，**类必须先定义，再使用**
+
+```js
+//如果先使用，再定义会报错，如下图
+new Foo();
+class Foo {}
+```
+
+![img4.png](https://i.loli.net/2020/07/24/PLJg5ACoVSdrOcR.png)
+
+ES6 不会把类的声明提升到代码的头部。规定是下面介绍到的继承有关，继承子类必须在父类后面
+
+```js
+class Father {}
+class Son extends Father {}
+//son是继承了father
+```
