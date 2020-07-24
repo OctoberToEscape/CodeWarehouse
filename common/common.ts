@@ -30,8 +30,8 @@ export const throttle = (func: Function, wait: number): Function => {
 
 //过滤对象键值为null的返回过滤后的对象
 export const filter = (obj: object): object => {
-    return Object["fromEntries"](
-        Object["entries"](obj).filter((item: any): boolean => {
+    return Object.fromEntries(
+        Object.entries(obj).filter((item: any): boolean => {
             return item[item.length - 1] !== null;
         })
     );
