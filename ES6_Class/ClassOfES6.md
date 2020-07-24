@@ -303,3 +303,105 @@ class Father {}
 class Son extends Father {}
 //son是继承了father
 ```
+
+---
+
+## class 的表达式
+
+与函数一样，class 也可以用表达式形式定义
+
+```js
+const myFoo = class Foo {
+    getClassName() {
+        return Foo.name;
+    }
+};
+
+let func = new myFoo();
+func.getClassName(); // Foo
+Foo.name; // Foo is not defined
+```
+
+上面的代码是用表达式定义了一个类。这个时候需要注意的是，此时的**类名是 `myFoo` 而不是 `Foo`**,`Foo`只能在 Class 代码的内部使用，指代当前类。所以 new 的时候要`new myFoo()`,而直接用 Foo 的话会报错。因为使用到了 Foo 所以是上面写法，如果用不到，则可以是下面的写法。
+
+```js
+const myFoo = class {
+    // ....
+};
+```
+
+如下，也可以写一个立即执行的 class
+
+```js
+//person就是一个立即执行的类的实例
+const person = new (class {
+    constructor(name) {
+        this.name = name;
+    }
+
+    sayName() {
+        return this.name;
+    }
+})("heqi");
+
+console.log(person.sayName()); // "heqi"
+```
+
+---
+
+## 私有属性
+
+私有方法是常见需求，但 ES6 不提供，只能通过变通方法模拟实现。
+
+-   第一种，在命名上加以区分(约定俗成)
+
+```js
+class Foo {
+    foo(baz) {
+        return this._bar(baz);
+    }
+
+    //私有
+    _bar(baz) {
+        this.name = "is" + baz;
+        return this.name;
+    }
+}
+
+var o = new Foo();
+console.log(o.foo("heqi")); // "isheqi"   调用了foo(),但是foo内部又调用了私有方法_bar()
+
+console.log(o._bar("JavaScript")); // "isJavaScript" 外部仍然可以调用
+
+//代码中,_bar(),在方法名前加了下划线,表示这是仅限内部使用的私有方法,但是这种方法不保险,在类的外部仍然可以调用此方法。
+```
+
+-   第二种 闭包，在 constructor 作用域内定义局部变量，内部载通过闭包的方式对外暴露该变量。
+
+```js
+class Foo {
+    constructor(name, age, number) {
+        this.name = name;
+        this.age = age;
+        let _number = number; //定义私有属性
+        this.getNumber = () => {
+            return _number;
+        };
+    }
+    toString() {
+        return _number;
+    }
+}
+var o = new Foo("heqi", 24, 18888888888);
+console.log(o); // Foo {name: "heqi", age: 24, getNumber: ƒ}
+console.log(o._number); // undefined
+console.log(o.getNumber()); // 18888888888
+
+console.log(o.toString()); // _number is not defined
+//这种方式，虽然实现了私有属性外部不可访问，但在类内部，该属性同样没法在不同的方法内共享，仍然不是严格意义上的“私有属性”。
+```
+
+-   第三种利用 `Symbol` 值的唯一性，将私有方法的名字命名为一个 `Symbol` 值，Symbol 变量可以作为对象 key 的特点，我们可以模拟实现更真实的私有属性。
+
+```js
+```
