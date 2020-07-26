@@ -7,20 +7,6 @@
     </head>
     <body></body>
     <script>
-        var obj = {
-            a: 1,
-            b: 2,
-            c: null,
-            d: 4,
-            f: 5,
-        };
-
-        const filter = (obj) => {
-            return Object.fromEntries(
-                Object.entries(obj).filter((item) => {
-                    return item[item.length - 1] !== null;
-                })
-            );
-        };
+        let obj = {};
     </script>
 </html>
