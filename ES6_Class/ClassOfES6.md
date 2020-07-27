@@ -401,7 +401,77 @@ console.log(o.toString()); // _number is not defined
 //这种方式，虽然实现了私有属性外部不可访问，但在类内部，该属性同样没法在不同的方法内共享，仍然不是严格意义上的“私有属性”。
 ```
 
--   第三种利用 `Symbol` 值的唯一性，将私有方法的名字命名为一个 `Symbol` 值，Symbol 变量可以作为对象 key 的特点，我们可以模拟实现更真实的私有属性。
+-   第三种 利用`WeakMap` Father 实例化之后 this 指向实例。此时以 this 为键可实现一个实例储存一份变量
 
 ```js
+const privateData = new WeakMap();
+
+//父类
+class Father {
+    constructor(name) {
+        this.name = name;
+        privateData.set(this, { age: 24 }); // 设置私有属性
+    }
+
+    getInfo() {
+        const info = {
+            name: this.name,
+            age: privateData.get(this).age, //获取私有属性 并非 this.age
+        };
+        return info;
+    }
+}
+
+var father = new Father("heqi");
+console.log(father.name); // "heqi"
+console.log(father.age); // undefined
+console.log(father.getInfo()); // {name: "heqi", age: 24}
+
+// 子类继承
+class Son extends Father {
+    constructor(name) {
+        super(name);
+    }
+}
+var son = new Son("javascript");
+console.log(son.name); // "javascript"
+console.log(son.getInfo()); // {name: "javascript", age: 24}
 ```
+
+上面代码中 父类 Father 利用`WeakMap()`设置了 age 为私有属性，所以后面直接 this.age 是获取不到值的，必须通过 getInfo()的方法利用**privateData.get(this).age**的方法才能拿到。但是如果出现了一个继承 Father 的子类，其实通过调用父类的方法也能拿到 age。**_所以 WeakMap() 实现的私有属性并没有实现不可继承的特点_**
+
+-   第四种利用 `Symbol` 值的唯一性，将私有方法的名字命名为一个 `Symbol` 值，Symbol 变量可以作为对象 key 的特点，我们可以模拟实现更真实的私有属性。
+
+```js
+const _age = Symbol("age");
+const _name = Symbol("name");
+const _gender = Symbol("gender");
+//设置了私有属性的类
+class Foo {
+    constructor(age, name, gender) {
+        this[_age] = age;
+        this[_name] = name;
+        this[_gender] = gender;
+    }
+}
+var foo = new Foo(24, "heqi", "men");
+console.log(foo); //Foo {Symbol(age): 24, Symbol(name): "heqi", Symbol(gender): "men"}
+console.log(Object.keys(foo)); //[]
+console.log(Object.getOwnPropertyNames(foo)); //[]
+console.log(Object.getOwnPropertySymbols(foo)); //想查看Symbol设置的私有属性通过Object.getOwnPropertySymbols()方法查看   [Symbol(age), Symbol(name), Symbol(gender)]
+
+//常规不设置
+class Foo {
+    constructor(age, name, gender) {
+        this.age = age;
+        this.name = name;
+        this.gender = gender;
+    }
+}
+var foo = new Foo(24, "heqi", "men");
+console.log(foo); //Foo {age: 24, name: "heqi", gender: "men"}
+console.log(Object.keys(foo)); //["age", "name", "gender"]
+console.log(Object.getOwnPropertyNames(foo)); //["age", "name", "gender"]
+```
+
+上面代码，由于 `Symbol` 可作为属性名并且不能被 `for..in..`、`Object.key()`、`Object.getOwnPropertyNames` 遍历。所以 `Symbol` 可以实现私有属性

@@ -7,6 +7,20 @@
     </head>
     <body></body>
     <script>
-        let obj = {};
+        const _age = Symbol("age");
+        const _name = Symbol("name");
+        const _gender = Symbol("gender");
+        class Foo {
+            constructor(age, name, gender) {
+                this[_age] = age;
+                this[_name] = name;
+                this[_gender] = gender;
+            }
+        }
+        var o = new Foo(24, "heqi", "men");
+        console.log(o);
+        console.log(Object.keys(o));
+        console.log(Object.getOwnPropertyNames(o));
+        console.log(Object.getOwnPropertySymbols(o));
     </script>
 </html>
