@@ -7,20 +7,48 @@
     </head>
     <body></body>
     <script>
-        const _age = Symbol("age");
-        const _name = Symbol("name");
-        const _gender = Symbol("gender");
-        class Foo {
-            constructor(age, name, gender) {
-                this[_age] = age;
-                this[_name] = name;
-                this[_gender] = gender;
+        class Person {
+            #name;
+            #age;
+            #gender;
+            constructor(name, age, gender) {
+                this.#name = name;
+                this.#age = age;
+                this.#gender = gender;
+            }
+
+            //私有属性
+            #userInfo() {
+                return (
+                    "家好，我叫" +
+                    this.#name +
+                    ",我今年" +
+                    this.#age +
+                    "，我是一个" +
+                    this.#gender
+                );
+            }
+
+            //实例方法
+            getUserInfo() {
+                return this.#userInfo();
             }
         }
-        var o = new Foo(24, "heqi", "men");
-        console.log(o);
-        console.log(Object.keys(o));
-        console.log(Object.getOwnPropertyNames(o));
-        console.log(Object.getOwnPropertySymbols(o));
+
+        var o = new Person("heqi", 24, "男人");
+        // // console.log(o.#userInfo());
+        // console.log(o.#name);
+        // console.log(Object.keys(o));
+        // console.log(Object.getOwnPropertyNames(o));
+        // console.log(Object.getOwnPropertySymbols(o));
+
+        class Son extends Person {
+            constructor(name, age, gender) {
+                super(name, age, gender);
+            }
+        }
+
+        var son = new Son("javascript", 100, "编程语言");
+        console.log(Object.getOwnPropertyNames(son));
     </script>
 </html>

@@ -349,7 +349,7 @@ console.log(person.sayName()); // "heqi"
 
 ---
 
-## 私有属性
+## 私有属性|方法
 
 私有方法是常见需求，但 ES6 不提供，只能通过变通方法模拟实现。
 
@@ -474,4 +474,50 @@ console.log(Object.keys(foo)); //["age", "name", "gender"]
 console.log(Object.getOwnPropertyNames(foo)); //["age", "name", "gender"]
 ```
 
-上面代码，由于 `Symbol` 可作为属性名并且不能被 `for..in..`、`Object.key()`、`Object.getOwnPropertyNames` 遍历。所以 `Symbol` 可以实现私有属性
+上面代码，由于 `Symbol` 可作为属性名并且不能被 `for..in..`、`Object.key()`、`Object.getOwnPropertyNames` 遍历。所以 `Symbol` 可以实现私有属性。
+
+-   第五种利用 # 号来实现(官方文档给出的办法)
+
+```js
+class Person {
+    //私有属性
+    #name;
+    #age;
+    #gender;
+    constructor(name, age, gender) {
+        this.#name = name;
+        this.#age = age;
+        this.#gender = gender;
+    }
+
+    //私有方法
+    #userInfo() {
+        return (
+            "大家好，我叫" +
+            this.#name +
+            ",我今年" +
+            this.#age +
+            "，我是一个" +
+            this.#gender
+        );
+    }
+
+    //实例方法
+    getUserInfo() {
+        return this.#userInfo();
+    }
+}
+
+var person = new Person("heqi", 24, "男人");
+console.log(person); // Person {#userInfo: ƒ, #name: "heqi", #age: 24, #gender: "男人"}
+console.log(person.#name); // 见下图1
+console.log(person.#userInfo()); // 见下图2
+console.log(person.getUserInfo()); // 大家好，我叫heqi,我今年24，我是一个男人
+console.log(Object.keys(person)); // []
+console.log(Object.getOwnPropertyNames(person)); // []
+```
+
+-   图 1
+    ![img6.jpg](https://i.loli.net/2020/07/27/TU7XrpPBfnuvi3h.jpg)
+-   图 2
+    ![img5.jpg](https://i.loli.net/2020/07/27/mbpuMzhngUCit3A.jpg)
