@@ -623,3 +623,15 @@ const foo = new Foo();
 const { getName } = classProxy(foo);
 getName("heqi"); // 你好heqi
 ```
+
+---
+
+## Class 的继承
+
+class 的继承通过`extends`关键字实现继承
+
+```js
+class Father {}
+//Son 继承了 Father
+class Son extends Father {}
+```
