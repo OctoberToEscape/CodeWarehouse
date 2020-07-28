@@ -521,3 +521,105 @@ console.log(Object.getOwnPropertyNames(person)); // []
     ![img6.jpg](https://i.loli.net/2020/07/27/TU7XrpPBfnuvi3h.jpg)
 -   图 2
     ![img5.jpg](https://i.loli.net/2020/07/27/mbpuMzhngUCit3A.jpg)
+
+---
+
+## class 的 this 指向问题
+
+类的内部如果含有 **this**,他默认指向的是这个实例。不过有些情况会导致 this 报错问题
+
+```js
+//例子
+class Foo {
+    getName(name) {
+        this.setName(`你好${name}`);
+    }
+
+    setName(name) {
+        console.log(name);
+    }
+}
+
+var foo = new Foo();
+foo.getName("heqi"); // 你好heqi
+
+/* 解构单独拿出方法使用时 */
+var { getName } = foo;
+getName(); // 会报错，见下图
+```
+
+`getName`方法中的 this，默认指向得是 Foo 这个实例，如果解构单独拿出来使用，this 就会指向当前的环境，因而找不到 `setName` 方法而报错。
+
+![img7.jpg](https://i.loli.net/2020/07/28/yg1DBwrm2NoCIia.jpg)
+
+-   解决方案 1,在构造方法中就绑定 this
+
+```js
+class Foo {
+    constructor() {
+        this.getName = this.getName.bind(this);
+    }
+    getName(name) {
+        this.setName(`你好${name}`);
+    }
+    setName(name) {
+        console.log(name);
+    }
+}
+var foo = new Foo();
+var { getName } = foo;
+getName("heqi"); // 你好heqi
+```
+
+-   解决方案 2,使用 ES6 的箭头函数
+
+```js
+class Foo {
+    constructor() {
+        this.getName = (name) => {
+            this.setName(`你好${name}`);
+        };
+    }
+    setName(name) {
+        console.log(name);
+    }
+}
+var foo = new Foo();
+var { getName } = foo;
+getName("javaScript"); // 你好javaScript
+```
+
+-   解决方案 3,使用`Proxy`,获取方法的时候自动绑定。
+
+```js
+//设置proxy方法
+const classProxy = (target) => {
+    const m = new WeakMap();
+    // 读取拦截配置, 只需要配置 get
+    const handler = {
+        get(target, key) {
+            const val = Reflect.get(target, key);
+            // 要获取的是函数执行, 如果不是函数就直接返回 val
+            if (typeof val !== "function") return val;
+            if (!m.has(val)) m.set(val, val.bind(target));
+            return m.get(val);
+        },
+    };
+    const proxy = new Proxy(target, handler);
+    return proxy;
+};
+
+class Foo {
+    getName(name) {
+        this.setName(`你好${name}`);
+    }
+
+    setName(name) {
+        console.log(name);
+    }
+}
+
+const foo = new Foo();
+const { getName } = classProxy(foo);
+getName("heqi"); // 你好heqi
+```

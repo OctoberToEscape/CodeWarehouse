@@ -7,48 +7,34 @@
     </head>
     <body></body>
     <script>
-        class Person {
-            #name;
-            #age;
-            #gender;
-            constructor(name, age, gender) {
-                this.#name = name;
-                this.#age = age;
-                this.#gender = gender;
+        const classProxy = (target) => {
+            const m = new WeakMap();
+            // 读取拦截配置, 只需要配置 get
+            const handler = {
+                get(target, key) {
+                    const val = Reflect.get(target, key);
+                    // 要获取的是函数执行, 如果不是函数就直接返回 val
+                    if (typeof val !== "function") return val;
+                    if (!m.has(val)) m.set(val, val.bind(target));
+                    return m.get(val);
+                },
+            };
+            const proxy = new Proxy(target, handler);
+            return proxy;
+        };
+
+        class Foo {
+            getName(name) {
+                this.setName(`你好${name}`);
             }
 
-            //私有属性
-            #userInfo() {
-                return (
-                    "家好，我叫" +
-                    this.#name +
-                    ",我今年" +
-                    this.#age +
-                    "，我是一个" +
-                    this.#gender
-                );
-            }
-
-            //实例方法
-            getUserInfo() {
-                return this.#userInfo();
+            setName(name) {
+                console.log(name);
             }
         }
 
-        var o = new Person("heqi", 24, "男人");
-        // // console.log(o.#userInfo());
-        // console.log(o.#name);
-        // console.log(Object.keys(o));
-        // console.log(Object.getOwnPropertyNames(o));
-        // console.log(Object.getOwnPropertySymbols(o));
-
-        class Son extends Person {
-            constructor(name, age, gender) {
-                super(name, age, gender);
-            }
-        }
-
-        var son = new Son("javascript", 100, "编程语言");
-        console.log(Object.getOwnPropertyNames(son));
+        const foo = new Foo();
+        const { getName } = classProxy(foo);
+        getName("heqi123"); // 你好heqi
     </script>
 </html>
