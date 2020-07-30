@@ -7,10 +7,20 @@
     </head>
     <body></body>
     <script>
-        class news {
-            constructor(name) {
-                this.name = name;
-            }
-        }
+        const classProxy = (target) => {
+            const m = new WeakMap();
+            // 读取拦截配置, 只需要配置 get
+            const handler = {
+                get(target, key) {
+                    const val = Reflect.get(target, key);
+                    // 要获取的是函数执行, 如果不是函数就直接返回 val
+                    if (typeof val !== "function") return val;
+                    if (!m.has(val)) m.set(val, val.bind(target));
+                    return m.get(val);
+                },
+            };
+            const proxy = new Proxy(target, handler);
+            return proxy;
+        };
     </script>
 </html>
