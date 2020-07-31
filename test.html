@@ -22,5 +22,10 @@
             const proxy = new Proxy(target, handler);
             return proxy;
         };
+        class Foo {
+            constructor(name) {
+                this.name = name;
+            }
+        }
     </script>
 </html>
