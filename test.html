@@ -7,15 +7,35 @@
     </head>
     <body></body>
     <script>
-        function Person(name, age) {
-            this.name = name;
-            this.age = age;
-        }
-        //构造函数基本都是定义在构造函数的原型上
-        Person.prototype.toString = function () {
-            return "(" + this.name + "," + this.age + ")";
+        //设置proxy方法
+        const classProxy = (target) => {
+            const m = new WeakMap();
+            // 读取拦截配置, 只需要配置 get
+            const handler = {
+                get(target, key) {
+                    const val = Reflect.get(target, key);
+                    // 要获取的是函数执行, 如果不是函数就直接返回 val
+                    if (typeof val !== "function") return val;
+                    if (!m.has(val)) m.set(val, val.bind(target));
+                    return m.get(val);
+                },
+            };
+            const proxy = new Proxy(target, handler);
+            return proxy;
         };
-        // 然后new一个对象
-        var person = new Person("heqi", 24); // Person {name:
+
+        class Foo {
+            getName(name) {
+                this.setName(`你好${name}`);
+            }
+
+            setName(name) {
+                console.log(name);
+            }
+        }
+
+        const foo = new Foo();
+        const { getName } = classProxy(foo);
+        getName("heqi"); // 你好heqi
     </script>
 </html>
