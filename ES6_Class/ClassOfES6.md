@@ -747,3 +747,81 @@ cp instanceof Father; //true
 ```
 
 **_上面代码实例对象 cp 同时是 Father 和 Son 两个类的实例。_**
+
+---
+
+## 类的 `prototype` 属性和`__proto__`属性
+
+大多数浏览器的 ES5 实现之中，每一个对象都有`__proto__`属性，指向对应的构造函数的`prototype` 属性。Class 作为构造函数的语法糖，同时有 `prototype` 属性和`__proto__`属性，因此同时存在两条继承链。
+
+```js
+class Father {}
+class Son extends Father {}
+
+/* 子类的__proto__属性，表示构造函数的继承，总是指向父类。 */
+Son.__proto__ === Father; // true
+
+/* 子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。 */
+Son.prototype.__proto__ === Father.prototype; //true
+```
+
+---
+
+## Extends 的继承目标
+
+`extends`关键字后面可以跟多种类型的值。
+
+> 1.常规
+
+```js
+class Father {}
+class Son extends Father {}
+```
+
+上面代码的 Father，只要是一个有 `prototype` 属性的函数，就能被 Son 继承。由于函数都有 `prototype` 属性（除了 `Function.prototype` 函数），因此 Son 可以是任意函数。
+
+> 2.特殊
+
+-   a).子类继承 Object 类。
+
+    ```js
+    /* 这种情况下，Son其实就是构造函数Object的复制，Son的实例就是Object的实例。 */
+    class Son extends Object {}
+    Son.__proto__ === Object; //true
+    Son.prototype.__proto__ === Object.prototype; //true
+    ```
+
+-   b).不存在任何继承。
+
+    ```js
+    /* 这种情况下，Son作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承Funciton.prototype。但是，Son调用后返回一个空对象（即Object实例），所以Son.prototype.__proto__指向构造函数Object的prototype属性。 */
+    class Son {}
+    Son.__proto__ === Function.prototype; //true
+    Son.prototype.__proto__ === Object.prototype; //true
+    ```
+
+-   c).子类继承 null。
+
+    ```js
+    /* 这种情况与第二种情况非常像。Son也是一个普通函数，所以直接继承Funciton.prototype。但是，Son调用后返回的对象不继承任何方法。 */
+    class Son extends null {}
+    Son.__proto__ === Function.prototype; //true
+    Son.prototype.__proto__ === undefined; //true
+    ```
+
+---
+
+## Object.getPrototypeOf()
+
+`Object.getPrototypeOf` 方法可以用来从子类上获取父类。
+
+```js
+class Father {}
+class Son extends Father {}
+Object.getPrototypeOf(Son); // class Father {}
+Object.getPrototypeOf(Son) === Father; // true
+```
+
+因此，可以使用这个方法判断，一个类是否继承了另一个类。
+
+---

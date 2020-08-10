@@ -11,21 +11,8 @@
 </html>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    class Father {
-        constructor(name, age) {
-            this.name = name;
-            this.age = age;
-        }
-    }
+    class Father {}
+    class Son extends Father {}
 
-    class Son extends Father {
-        constructor(name, age) {
-            super(name, age);
-        }
-    }
-
-    var cp = new Son("heqi", 24);
-
-    console.log(cp instanceof Son);
-    console.log(cp instanceof Father);
+    console.log(Object.getPrototypeOf(Son));
 </script>
