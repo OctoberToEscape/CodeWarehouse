@@ -665,7 +665,7 @@ var son = new Son("范冰冰", 40, "女"); //Son {name: "范冰冰", age: 50, g
 son.toString(); //范冰冰,50,你调用了父亲的方法
 ```
 
-**子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继承父类的 this 对象。**
+**子类必须在 `constructor` 方法中调用 `super` 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继承父类的 this 对象。**
 
 ```js
 class Father {
@@ -702,3 +702,48 @@ class Son extends Father {
     }
 }
 ```
+
+如果子类没有定义 `constructor` 方法，这个方法会被**默认添加**，代码如下。也就是说，不管有没有显式定义，任何一个子类都有 `constructor` 方法。
+
+```js
+//父类
+class Father {
+    constructor() {
+        //doing...
+    }
+}
+
+//子类继承
+
+class Son extends Father {}
+//等同于
+class Son extends Father {
+    constructor() {
+        super();
+    }
+}
+```
+
+下面是生成子类实例的代码。
+
+```js
+class Father {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Son extends Father {
+    constructor(name, age) {
+        super(name, age);
+    }
+}
+
+var cp = new Son("heqi", 24);
+
+cp instanceof Son; //true
+cp instanceof Father; //true
+```
+
+**_上面代码实例对象 cp 同时是 Father 和 Son 两个类的实例。_**

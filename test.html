@@ -19,8 +19,13 @@
     }
 
     class Son extends Father {
-        constructor() {}
+        constructor(name, age) {
+            super(name, age);
+        }
     }
 
-    var son = new Son();
+    var cp = new Son("heqi", 24);
+
+    console.log(cp instanceof Son);
+    console.log(cp instanceof Father);
 </script>
