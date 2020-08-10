@@ -11,7 +11,16 @@
 </html>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(".app").click(() => {
-        console.log("点击事件5555你很好");
-    });
+    class Father {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+    }
+
+    class Son extends Father {
+        constructor() {}
+    }
+
+    var son = new Son();
 </script>

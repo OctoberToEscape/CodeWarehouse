@@ -635,3 +635,70 @@ class Father {}
 //Son 继承了 Father
 class Son extends Father {}
 ```
+
+上面代码定义了一个 `Son` 类，该类通过 `extends` 关键字，继承了 `Father` 类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个 `Father` 类。下面，我们在 `Son` 内部加上代码。
+
+```js
+class Father {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    toString() {
+        return "你调用了父亲的方法";
+    }
+}
+//Son 继承了 Father
+class Son extends Father {
+    constructor(name, age, gender) {
+        super(name, age); // 调用父类的constructor(name,age)
+        this.gender = gender;
+    }
+
+    toString() {
+        return this.name + "," + this.age + "," + super.toString(); //调用父类toString()
+    }
+}
+
+var father = new Father("heqi", 24); //Father {name: "heqi", age: 24}
+var son = new Son("范冰冰", 40, "女"); //Son {name: "范冰冰", age: 50, gender: "女"}
+son.toString(); //范冰冰,50,你调用了父亲的方法
+```
+
+**子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继承父类的 this 对象。**
+
+```js
+class Father {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Son extends Father {
+    constructor() {}
+}
+
+var son = new Son(); // 报错见下图
+```
+
+![img8.png](https://i.loli.net/2020/08/10/O8HgdpbtAh7YJQR.png)
+
+**另一个需要注意的地方是，在子类的构造函数中，只有调用 super 之后，才可以使用 this 关键字，否则会报错**
+
+```js
+class Father {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Son extends Father {
+    constructor(name, age, gender) {
+        this.gender = gender; // error
+        super(name, age, gender);
+        this.gender = gender; // 正确
+    }
+}
+```
