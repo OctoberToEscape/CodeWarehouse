@@ -47,14 +47,22 @@
     </head>
     <body>
         <div id="app">
-            <nav>
-                <div>13</div>
-            </nav>
+            <nav></nav>
         </div>
     </body>
 </html>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="./api.js"></script>
 <script>
-    getNav();
+    const list = ["古诗文", "字词", "古诗", "游学", "旋律"];
+
+    var course = list
+        .map((item) => {
+            return `<div>${item}</div>`;
+        })
+        .join("");
+    $("nav").html(course);
+    $("nav").click("div", (index) => {
+        $(this).addClass("active").siblings().removeClass();
+    });
 </script>
