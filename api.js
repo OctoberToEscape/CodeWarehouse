@@ -6,7 +6,6 @@ const getNav = () => {
     return $.ajax({
         url: BASEUTL + "/chinese/products",
         type: "get",
-        contentType: "application/json",
         success: (res) => {
             return res.data;
         },
