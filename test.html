@@ -12,40 +12,5 @@
         </div>
     </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
-    var data = {};
-    var dom = document.querySelector("h3");
-
-    //vue2.0
-    // const changeValue = (value) => {
-    //     data.value = value;
-    // };
-
-    // Object.defineProperty(data, "value", {
-    //     set(nv) {
-    //         dom.innerHTML = nv;
-    //     },
-    //     get() {
-    //         return value;
-    //     },
-    // });
-
-    //vue3.0
-    const changeValue = (value) => {
-        newData[0] = value;
-    };
-
-    var newData = new Proxy(data, {
-        // target就是第一个参数obj, receive就是返回的obj(返回的proxy对象)
-        get(target, key, receive) {
-            // 返回该属性值
-            return target[key];
-        },
-        set(target, key, newVal, receive) {
-            // 执行赋值操作
-            target[key] = newVal;
-            dom.innerHTML = target[key];
-        },
-    });
-</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script></script>
