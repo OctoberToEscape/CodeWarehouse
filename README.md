@@ -12,4 +12,4 @@
 
 > [6.一些常用的业务封装函数](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/common.ts)
 
-> [7.vue 的学习过程](https://github.com/OctoberToEscape/CodeWarehouse/tree/master/vue)
+> [7.vue 的学习过程](https://github.com/OctoberToEscape/vue-notes)
