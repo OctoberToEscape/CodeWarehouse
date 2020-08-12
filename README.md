@@ -11,3 +11,5 @@
 > [5.常用的正则方法总结](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/validation.ts)
 
 > [6.一些常用的业务封装函数](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/common.ts)
+
+> [7.vue 的学习过程](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/vue/vue.md)

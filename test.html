@@ -4,65 +4,48 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-            #app {
-                width: 100%;
-                height: 100%;
-            }
-            #app nav {
-                width: 100%;
-                padding: 0 15%;
-                box-sizing: border-box;
-                height: 60px;
-                color: aqua;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            #app nav div {
-                line-height: 60px;
-                text-align: center;
-                font-size: 16px;
-                color: #333;
-            }
-            #app nav .active {
-                color: #ffffff;
-            }
-            #app nav .active::after {
-                content: "";
-                display: block;
-                height: 2px;
-                width: 20px;
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: #ffffff;
-            }
-        </style>
     </head>
     <body>
         <div id="app">
-            <nav></nav>
+            <h3></h3>
+            <input type="text" oninput="changeValue(this.value)" />
         </div>
     </body>
 </html>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="./api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    const list = ["古诗文", "字词", "古诗", "游学", "旋律"];
+    var data = {};
+    var dom = document.querySelector("h3");
 
-    var course = list
-        .map((item) => {
-            return `<div>${item}</div>`;
-        })
-        .join("");
-    $("nav").html(course);
-    $("nav").click("div", (index) => {
-        $(this).addClass("active").siblings().removeClass();
+    //vue2.0
+    // const changeValue = (value) => {
+    //     data.value = value;
+    // };
+
+    // Object.defineProperty(data, "value", {
+    //     set(nv) {
+    //         dom.innerHTML = nv;
+    //     },
+    //     get() {
+    //         return value;
+    //     },
+    // });
+
+    //vue3.0
+    const changeValue = (value) => {
+        newData[0] = value;
+    };
+
+    var newData = new Proxy(data, {
+        // target就是第一个参数obj, receive就是返回的obj(返回的proxy对象)
+        get(target, key, receive) {
+            // 返回该属性值
+            return target[key];
+        },
+        set(target, key, newVal, receive) {
+            // 执行赋值操作
+            target[key] = newVal;
+            dom.innerHTML = target[key];
+        },
     });
 </script>
