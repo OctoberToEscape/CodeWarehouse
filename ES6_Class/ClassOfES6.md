@@ -825,3 +825,40 @@ Object.getPrototypeOf(Son) === Father; // true
 因此，可以使用这个方法判断，一个类是否继承了另一个类。
 
 ---
+
+## super 关键字
+
+super 这个关键字，既可以当作函数使用，也可以当作对象使用。
+
+-   super 作为函数调用时
+
+    ```js
+    class Father {}
+
+    class Son extends Father {
+        constructor() {
+            super();
+        }
+    }
+    ```
+
+    上面代码中，子类 Son 的构造函数之中的 super()，代表调用父类的构造函数。这是必须的，否则 JavaScript 引擎会报错。
+
+    虽然 super 代表的是 Father 构造函数，但是返回的是 Son 的实例
+
+    ```js
+    class Father {
+        constructor() {
+            console.log(this);
+        }
+    }
+
+    class Son extends Father {
+        constructor() {
+            super();
+        }
+    }
+
+    var son = new Son(); // this =>  Son {}
+    var father = new Father(); // this =>  Father{}
+    ```

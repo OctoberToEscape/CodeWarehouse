@@ -6,11 +6,21 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="app">
-            <h3></h3>
-            <input type="text" oninput="changeValue(this.value)" />
-        </div>
+        <div id="app"></div>
     </body>
 </html>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
-<script></script>
+<script>
+    class Father {
+        constructor() {
+            console.log(this);
+        }
+    }
+
+    class Son extends Father {
+        constructor() {
+            super();
+        }
+    }
+    var son = new Son();
+    var fa = new Father();
+</script>
