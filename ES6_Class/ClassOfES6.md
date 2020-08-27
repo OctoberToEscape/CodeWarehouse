@@ -862,3 +862,5 @@ super 这个关键字，既可以当作函数使用，也可以当作对象使�
     var son = new Son(); // this =>  Son {}
     var father = new Father(); // this =>  Father{}
     ```
+
+-   super 直接调用
