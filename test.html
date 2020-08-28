@@ -9,4 +9,16 @@
         <div id="app"></div>
     </body>
 </html>
-<script></script>
+<script>
+    class Father {}
+    Father.prototype.options = "options";
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+    let son = new Son();
+
+    console.log(son.option); // undefined
+</script>

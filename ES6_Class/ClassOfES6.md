@@ -863,4 +863,62 @@ super 这个关键字，既可以当作函数使用，也可以当作对象使�
     var father = new Father(); // this =>  Father{}
     ```
 
--   super 直接调用
+-   super 作为对象时，指向父类的原型对象。
+
+    ```js
+    class Father {
+        foo() {
+            return "父亲的方法";
+        }
+    }
+
+    class Son extends Father {
+        constructor() {
+            super();
+            console.log(super.foo()); // 打印 ： 父亲的方法
+        }
+    }
+
+    var son = new Son();
+    ```
+
+    上面代码中，子类 Son 中的 `super.foo()`,就是将 super 作为一个对象来使用，这个时候`super`指向的是`Father.prototype`,所以`super.foo()`就相当于`Father.prototype.foo()`
+
+    需要 **_注意_** 的是,由于 super 指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过 super 调用的。
+
+    ```js
+    class Father {
+        constructor() {
+            this.options = "option";
+        }
+    }
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+
+    var father = new Father();
+    father.options; // option
+
+    var son = new Son();
+    son.option; // undefined
+    ```
+
+    上面代码中，options 是父类 Father 实例的属性，super.options 就引用不到它。
+
+    如果属性定义在父类的原型对象上，super 就可以取到。
+
+    ```js
+    class Father {}
+    Father.prototype.options = "options";
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+    var son = new Son();
+    son.option; // options
+    ```
