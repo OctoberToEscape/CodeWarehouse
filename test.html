@@ -27,4 +27,55 @@
 
     var son = new Son();
     son.option; // undefined
+    class Father {
+        constructor() {
+            this.options = "option";
+        }
+    }
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+
+    var father = new Father();
+    father.options; // option
+
+    var son = new Son();
+    son.option; // undefined
+    class Father {
+        constructor() {
+            this.options = "option";
+        }
+    }
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+
+    var father = new Father();
+    father.options; // option
+
+    var son = new Son();
+    son.option; // undefined
+    class Father {
+        constructor() {
+            this.options = "option";
+        }
+    }
+
+    class Son extends Father {
+        get option() {
+            return super.options;
+        }
+    }
+
+    var father = new Father();
+    father.options; // option
+
+    var son = new Son();
+    son.option; // undefined
 </script>
