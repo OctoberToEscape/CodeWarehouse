@@ -39,4 +39,34 @@
     console.log(foo); //Foo {age: 24, name: "heqi", gender: "men"}
     console.log(Object.keys(foo)); //["age", "name", "gender"]
     console.log(Object.getOwnPropertyNames(foo)); //["age", "name", "gender"]
+
+    const _age = Symbol("age");
+    const _name = Symbol("name");
+    const _gender = Symbol("gender");
+    //设置了私有属性的类
+    class Foo {
+        constructor(age, name, gender) {
+            this[_age] = age;
+            this[_name] = name;
+            this[_gender] = gender;
+        }
+    }
+    var foo = new Foo(24, "heqi", "men");
+    console.log(foo); //Foo {Symbol(age): 24, Symbol(name): "heqi", Symbol(gender): "men"}
+    console.log(Object.keys(foo)); //[]
+    console.log(Object.getOwnPropertyNames(foo)); //[]
+    console.log(Object.getOwnPropertySymbols(foo)); //想查看Symbol设置的私有属性通过Object.getOwnPropertySymbols()方法查看   [Symbol(age), Symbol(name), Symbol(gender)]
+
+    //常规不设置
+    class Foo {
+        constructor(age, name, gender) {
+            this.age = age;
+            this.name = name;
+            this.gender = gender;
+        }
+    }
+    var foo = new Foo(24, "heqi", "men");
+    console.log(foo); //Foo {age: 24, name: "heqi", gender: "men"}
+    console.log(Object.keys(foo)); //["age", "name", "gender"]
+    console.log(Object.getOwnPropertyNames(foo)); //["age", "name", "gender"]
 </script>
