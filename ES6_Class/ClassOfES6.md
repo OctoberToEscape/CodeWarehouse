@@ -922,3 +922,33 @@ super 这个关键字，既可以当作函数使用，也可以当作对象使�
     var son = new Son();
     son.option; // options
     ```
+
+    上面代码中，属性 options 是定义在父 Father.prototype 之上的，所以 super.options 能够取到值。`ES6规定，通过super调用父类的方法时，super会绑定子类的this`
+
+    ```js
+    class Father {
+        constructor() {
+            this.num = 1;
+        }
+        point() {
+            console.log(this.num);
+        }
+    }
+    class Son extends Father {
+        constructor() {
+            super();
+            this.num = 2;
+        }
+        son_point() {
+            super.point();
+        }
+    }
+
+    const father = new Father();
+    father.point(); // 1
+
+    const son = new Son();
+    son.son_point(); // 2
+    ```
+
+    上面代码中，虽然 `super.point()`调用的事`Father.prototype.point()`,但是该方法会绑子类(Son)的 this,所以输出的是 2，并不是 1,也就是说，实际上执行的是 `super.print.call(this)`,这个时候如果对 super 的某个属性 赋值，也就是对 this 某个属性 赋值，属性就会变成子类实例的属性。

@@ -10,16 +10,27 @@
     </body>
 </html>
 <script>
-    //person就是一个立即执行的类的实例
-    const person = new (class {
-        constructor(name) {
-            this.name = name;
+    class Father {
+        constructor() {
+            this.num = 1;
         }
-
-        sayName() {
-            return this.name;
+        point() {
+            console.log(this.num);
         }
-    })("heqi");
+    }
+    class Son extends Father {
+        constructor() {
+            super();
+            this.num = 2;
+        }
+        son_point() {
+            super.point();
+        }
+    }
 
-    console.log(person.sayName()); // "heqi"
+    const father = new Father();
+    father.point(); // 1
+
+    const son = new Son();
+    son.son_point(); // 2
 </script>
