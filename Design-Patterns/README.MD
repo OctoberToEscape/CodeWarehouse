@@ -227,7 +227,7 @@ class Build {
     }
 }
 
-//子类1:创建电脑
+// 子类1:创建电脑
 class BuildComputer extends Build {
     constructor() {
         super();
@@ -241,7 +241,7 @@ class BuildComputer extends Build {
     }
 }
 
-//子类2:创建汽车
+// 子类2:创建汽车
 class BuildCar extends Build {
     constructor() {
         super();
@@ -251,7 +251,7 @@ class BuildCar extends Build {
         super.init();
     }
 }
-// 电脑
+// 建造电脑
 const computer = new BuildComputer()
     .addMonitor("5k高清显示屏")
     .addCpu("3.00GHz")
@@ -272,7 +272,7 @@ console.log(computer);
     __proto__: Object
 */
 
-//汽车
+// 建造汽车
 const car = new BuildCar()
     .addEngine("v12发动机")
     .addChassis("复合材料底盘")
