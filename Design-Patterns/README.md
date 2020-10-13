@@ -121,13 +121,13 @@ const computer = new Build()
 
 console.log(computer);
 /* 
-    {monitor: "5k高清显示屏", CPU: "3.00GHz", RAM: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
-    CPU: "3.00GHz"
-    RAM: "16G"
+    {monitor: "5k高清显示屏", cpu: "3.00GHz", ram: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
+    cpu: "3.00GHz"
     keyboard: "机械键盘"
     monitor: "5k高清显示屏"
-    mouse: "暂无配置"
+    mouse: "雷蛇鼠标"
     opticalDrive: "外置光驱"
+    ram: "16G"
     __proto__: Object
 */
 ```
@@ -182,13 +182,13 @@ const computer = new Build()
     .build();
 console.log(computer);
 /* 
-    {monitor: "5k高清显示屏", CPU: "3.00GHz", RAM: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
-    CPU: "3.00GHz"
-    RAM: "16G"
+    {monitor: "5k高清显示屏", cpu: "3.00GHz", ram: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
+    cpu: "3.00GHz"
     keyboard: "机械键盘"
     monitor: "5k高清显示屏"
-    mouse: "暂无配置"
+    mouse: "雷蛇鼠标"
     opticalDrive: "外置光驱"
+    ram: "16G"
     __proto__: Object
 */
 ```
@@ -262,13 +262,13 @@ const computer = new BuildComputer()
     .build();
 console.log(computer);
 /* 
-    {monitor: "5k高清显示屏", CPU: "3.00GHz", RAM: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
-    CPU: "3.00GHz"
-    RAM: "16G"
+    {monitor: "5k高清显示屏", cpu: "3.00GHz", ram: "16G", opticalDrive: "外置光驱", keyboard: "机械键盘", …}
+    cpu: "3.00GHz"
     keyboard: "机械键盘"
     monitor: "5k高清显示屏"
-    mouse: "暂无配置"
+    mouse: "雷蛇鼠标"
     opticalDrive: "外置光驱"
+    ram: "16G"
     __proto__: Object
 */
 
