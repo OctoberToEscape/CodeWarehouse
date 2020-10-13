@@ -10,5 +10,77 @@
     </body>
 </html>
 <script>
-    console.log(666);
+    //创建父类
+    class Build {
+        //初始化
+        init() {
+            Object.keys(this).forEach((key) => {
+                //统一生成方法名
+                const addName = `add${key
+                    .substring(0, 1)
+                    .toUpperCase()}${key.substring(1)}`;
+                //统一执行方法
+                this[addName] = (val) => {
+                    this[key] = val;
+                    return this;
+                };
+            });
+        }
+        //建造
+        build() {
+            const keyNotAdd = Object.keys(this).filter(
+                (key) => typeof this[key] !== "function"
+            );
+
+            return keyNotAdd.reduce((val, key) => {
+                return {
+                    ...val,
+                    [key]: this[key],
+                };
+            }, {});
+        }
+    }
+
+    //子类1:创建电脑
+    class BuildComputer extends Build {
+        constructor() {
+            super();
+            this.monitor = "";
+            this.cpu = "";
+            this.ram = "";
+            this.opticalDrive = "";
+            this.keyboard = "";
+            this.mouse = "";
+            super.init();
+        }
+    }
+
+    //子类2:创建汽车
+    class BuildCar extends Build {
+        constructor() {
+            super();
+            this.engine = "";
+            this.chassis = "";
+            this.body = "";
+            super.init();
+        }
+    }
+    // 电脑
+    const computer = new BuildComputer()
+        .addMonitor("5k高清显示屏")
+        .addCpu("3.00GHz")
+        .addRam("16G")
+        .addOpticalDrive("外置光驱")
+        .addKeyboard("机械键盘")
+        .addMouse("雷蛇鼠标")
+        .build();
+    console.log(computer);
+
+    //汽车
+    const car = new BuildCar()
+        .addEngine("v12发动机")
+        .addChassis("复合材料底盘")
+        .addBody("碳纤维车身")
+        .build();
+    console.log(car);
 </script>

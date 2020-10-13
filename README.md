@@ -13,3 +13,5 @@
 > [6.一些常用的业务封装函数](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/common/common.ts)
 
 > [7.vue 的学习过程](https://github.com/OctoberToEscape/vue-notes)
+
+> [8.前端常用的设计模式总结](https://github.com/OctoberToEscape/CodeWarehouse/blob/master/Design-Patterns/README.md)
