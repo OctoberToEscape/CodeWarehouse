@@ -400,3 +400,88 @@ console.log(car);
     ```
 
     上面代码我们可以看到，相比于简单工厂函数，工厂方法模式的工厂函数不是固定的，而是根据 type 不同而不同。当我们需要**添加**新的类时，只需要在 animal 对象中添加实例即可，不需要修改工厂函数。这样的话就不会因为需要添加新的类，而修改过多的代码逻辑。这就是工厂方法模式。**其实就是对简单工厂模式的优化而已。**
+
+-   抽象工厂模式
+
+    抽象工厂模式是围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。
+
+    ```js
+    //现在我们的宠物店已经做得很大了，可以开很多分店了，而且还加入新的收购宠物的功能
+
+    //宠物总店
+    class HeadOffice {
+        sellAnimal(name, person) {
+            console.log(`${person}出售了一只${name}`);
+        }
+        buyAnimal(name, person) {
+            console.log(`${person}卖给店铺一只${name}`);
+        }
+        methods(type, name, person) {
+            switch (type) {
+                case "sell":
+                    this.sellAnimal(name, person);
+                    break;
+                case "buy":
+                    this.buyAnimal(name, person);
+            }
+        }
+    }
+
+    //陆地宠物分店
+    class LandAnimal extends HeadOffice {
+        constructor() {
+            super();
+        }
+        cat(type, person) {
+            this.methods(type, "猫咪", person);
+        }
+        dog(type, person) {
+            this.methods(type, "狗狗", person);
+        }
+        pig(type, person) {
+            this.methods(type, "猪猪", person);
+        }
+    }
+
+    //水类宠物分店
+    class FishAnimal extends HeadOffice {
+        constructor() {
+            super();
+        }
+        shark(type, person) {
+            this.methods(type, "鲨鱼", person);
+        }
+        whale(type, person) {
+            this.methods(type, "鲸鱼", person);
+        }
+    }
+
+    //店铺选择
+    const pet = (shop) => {
+        switch (shop) {
+            case "land":
+                return new LandAnimal();
+                break;
+            case "fish":
+                return new FishAnimal();
+                break;
+            default:
+                throw new Error(`非常抱歉，暂时没有${shop}店铺`);
+        }
+    };
+
+    //去陆地宠物店
+    const landShop = pet("land");
+    landShop.cat("sell", "Tom"); // Tom出售了一只猫咪
+    landShop.dog("buy", "Jack"); // Jack卖给店铺一只狗狗
+
+    //去水族馆
+    const aquarium = pet("fish");
+    aquarium.shark("sell", "Lisa"); // Lisa出售了一只鲨鱼
+    aquarium.whale("buy", "Nick"); // Nick卖给店铺一只鲸鱼
+
+    //去一个不存在的店铺
+    const zoo = pet("zoo"); // Error: 非常抱歉，暂时没有zoo店铺at pet
+    ```
+
+    如上我们通过选择不同的类型进入不同的店铺购买或出售小宠物，用抽象工厂完成了一个简单去各分店的功能。

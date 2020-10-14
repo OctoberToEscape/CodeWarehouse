@@ -125,37 +125,112 @@
     // new Animal("dog", "Lisa");
     // new Animal("monkey", "Heqi");
 
-    const Animal = (() => {
-        const animal = {
-            cat(person) {
-                console.log(`${person}买了一只猫咪`);
-            },
-            dog(person) {
-                console.log(`${person}买了一只狗子`);
-            },
-            pig(person) {
-                console.log(`${person}买了一只猪猪`);
-            },
-            //现在宠物店新进了一只宠物
-            monkey(person) {
-                console.log(`${person}买了一只猴子`);
-            },
-        };
+    // const Animal = (() => {
+    //     const animal = {
+    //         cat(person) {
+    //             console.log(`${person}买了一只猫咪`);
+    //         },
+    //         dog(person) {
+    //             console.log(`${person}买了一只狗子`);
+    //         },
+    //         pig(person) {
+    //             console.log(`${person}买了一只猪猪`);
+    //         },
+    //         //现在宠物店新进了一只宠物
+    //         monkey(person) {
+    //             console.log(`${person}买了一只猴子`);
+    //         },
+    //     };
 
-        return class {
-            constructor(type, person) {
-                try {
-                    return animal[type](person);
-                } catch {
-                    throw new Error(`尊敬的${person},很抱歉,本店没有${type}`);
-                }
+    //     return class {
+    //         constructor(type, person) {
+    //             try {
+    //                 return animal[type](person);
+    //             } catch {
+    //                 throw new Error(`尊敬的${person},很抱歉,本店没有${type}`);
+    //             }
+    //         }
+    //     };
+    // })();
+
+    // //再次购买宠物
+    // new Animal("cat", "Tom");
+    // new Animal("pig", "Jack");
+    // new Animal("dog", "Lisa");
+    // new Animal("monkey", "Heqi");
+
+    // 总店
+    class HeadOffice {
+        sellAnimal(name, person) {
+            console.log(`${person}出售了一只${name}`);
+        }
+        buyAnimal(name, person) {
+            console.log(`${person}卖给店铺一只${name}`);
+        }
+        methods(type, name, person) {
+            switch (type) {
+                case "sell":
+                    this.sellAnimal(name, person);
+                    break;
+                case "buy":
+                    this.buyAnimal(name, person);
             }
-        };
-    })();
+        }
+    }
 
-    //再次购买宠物
-    new Animal("cat", "Tom");
-    new Animal("pig", "Jack");
-    new Animal("dog", "Lisa");
-    new Animal("monkey", "Heqi");
+    //陆地宠物分店
+    class LandAnimal extends HeadOffice {
+        constructor() {
+            super();
+        }
+        cat(type, person) {
+            this.methods(type, "猫咪", person);
+        }
+        dog(type, person) {
+            this.methods(type, "狗狗", person);
+        }
+        pig(type, person) {
+            this.methods(type, "猪猪", person);
+        }
+    }
+
+    //水类宠物分店
+    class FishAnimal extends HeadOffice {
+        constructor() {
+            super();
+        }
+        shark(type, person) {
+            this.methods(type, "鲨鱼", person);
+        }
+        whale(type, person) {
+            this.methods(type, "鲸鱼", person);
+        }
+    }
+
+    //店铺选择
+    const pet = (shop) => {
+        switch (shop) {
+            case "land":
+                return new LandAnimal();
+                break;
+            case "fish":
+                return new FishAnimal();
+                break;
+            default:
+                throw new Error(`非常抱歉，暂时没有${shop}店铺`);
+        }
+    };
+
+    //去陆地宠物店
+    const landShop = pet("land");
+    landShop.cat("sell", "tom");
+    landShop.dog("buy", "jack");
+
+    //去水族馆
+    const aquarium = pet("fish");
+    aquarium.shark("sell", "lisa");
+    aquarium.whale("buy", "Nick");
+
+    //去一个不存在的店铺
+    const zoo = pet("zoo");
 </script>
