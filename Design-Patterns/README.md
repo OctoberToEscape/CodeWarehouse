@@ -36,7 +36,7 @@
 
 ---
 
-### 建造者模式
+### 1.建造者模式
 
 建造者模式（Builder Pattern）将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。
 
@@ -287,3 +287,69 @@ console.log(car);
     __proto__: Object
  */
 ```
+
+---
+
+### 2.工厂模式
+
+在众多设计模式当中，有一种被称为工厂模式的设计模式，它提供了创建对象的最佳方式。工厂模式可以分为：**简单工厂模式**、**工厂方法模式**和**抽象工厂模式**。
+
+-   简单工厂模式
+
+    简单工厂模式又叫**_静态方法模式_**，因为工厂类中定义了一个静态方法用于创建对象。
+
+    > 优点：
+    >
+    > > 1.客户端只需知道传入工厂类静态方法的参数，而不需要关心创建对象的细节
+    >
+    > > 2.工厂类负责创建的对象比较少：由于创建的对象比较少，不会造成工厂方法中业务逻辑过于复杂
+
+    ```js
+    //我们想去买点动物，这个时候去了一家宠物店
+
+    //宠物猫
+    class Cat {
+        constructor(person) {
+            console.log(`${person}买了一只猫咪`);
+        }
+    }
+    //宠物狗
+    class Dog {
+        constructor(person) {
+            console.log(`${person}买了一只狗`);
+        }
+    }
+    //宠物猪
+    class Pig {
+        constructor(person) {
+            console.log(`${person}买了一只猪`);
+        }
+    }
+
+    //店家
+    class Animal {
+        constructor(animal, person) {
+            switch (animal) {
+                case "cat":
+                    return new Cat(person);
+                    break;
+                case "dog":
+                    return new Dog(person);
+                    break;
+                case "pig":
+                    return new Pig(person);
+                    break;
+                default:
+                    throw new Error(`尊敬的${person},很抱歉,本店没有${animal}`);
+            }
+        }
+    }
+
+    //用户去购买小动物
+    new Animal("cat", "Tom"); // Tom买了一只猫咪
+    new Animal("pig", "Jack"); // Jack买了一只猪
+    new Animal("dog", "Lisa"); // Lisa买了一只狗
+    new Animal("monkey", "Heqi"); //  Error: 尊敬的Heqi,很抱歉,本店没有monkey at new Animal
+    ```
+
+    在以上代码中，我们定义一个 `Animal` 类，该类提供了一个叫 `animal` 的参数，用于根据不同的模型参数来购买不同类型的小动物。
