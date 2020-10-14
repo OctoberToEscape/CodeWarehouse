@@ -411,7 +411,7 @@ console.log(car);
     //宠物总店
     class HeadOffice {
         sellAnimal(name, person) {
-            console.log(`${person}出售了一只${name}`);
+            console.log(`店铺出售了一只${name}给${person}`);
         }
         buyAnimal(name, person) {
             console.log(`${person}卖给店铺一只${name}`);
@@ -472,12 +472,12 @@ console.log(car);
 
     //去陆地宠物店
     const landShop = pet("land");
-    landShop.cat("sell", "Tom"); // Tom出售了一只猫咪
+    landShop.cat("sell", "Tom"); // 店铺出售了一只猫咪给Tom
     landShop.dog("buy", "Jack"); // Jack卖给店铺一只狗狗
 
     //去水族馆
     const aquarium = pet("fish");
-    aquarium.shark("sell", "Lisa"); // Lisa出售了一只鲨鱼
+    aquarium.shark("sell", "Lisa"); // 店铺出售了一只鲨鱼给Lisa
     aquarium.whale("buy", "Nick"); // Nick卖给店铺一只鲸鱼
 
     //去一个不存在的店铺
