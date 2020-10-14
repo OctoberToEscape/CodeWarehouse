@@ -84,42 +84,76 @@
     //     .build();
     // console.log(car);
 
-    class Cat {
-        constructor(person) {
-            console.log(`${person}买了一只猫咪`);
-        }
-    }
+    // class Cat {
+    //     constructor(person) {
+    //         console.log(`${person}买了一只猫咪`);
+    //     }
+    // }
 
-    class Dog {
-        constructor(person) {
-            console.log(`${person}买了一只狗`);
-        }
-    }
+    // class Dog {
+    //     constructor(person) {
+    //         console.log(`${person}买了一只狗`);
+    //     }
+    // }
 
-    class Pig {
-        constructor(person) {
-            console.log(`${person}买了一只猪`);
-        }
-    }
+    // class Pig {
+    //     constructor(person) {
+    //         console.log(`${person}买了一只猪`);
+    //     }
+    // }
 
-    class Animal {
-        constructor(animal, person) {
-            switch (animal) {
-                case "cat":
-                    return new Cat(person);
-                    break;
-                case "dog":
-                    return new Dog(person);
-                    break;
-                case "pig":
-                    return new Pig(person);
-                    break;
-                default:
-                    throw new Error(`尊敬的${person},很抱歉,本店没有${animal}`);
+    // class Animal {
+    //     constructor(animal, person) {
+    //         switch (animal) {
+    //             case "cat":
+    //                 return new Cat(person);
+    //                 break;
+    //             case "dog":
+    //                 return new Dog(person);
+    //                 break;
+    //             case "pig":
+    //                 return new Pig(person);
+    //                 break;
+    //             default:
+    //                 throw new Error(`尊敬的${person},很抱歉,本店没有${animal}`);
+    //         }
+    //     }
+    // }
+
+    // new Animal("cat", "Tom");
+    // new Animal("pig", "Jack");
+    // new Animal("dog", "Lisa");
+    // new Animal("monkey", "Heqi");
+
+    const Animal = (() => {
+        const animal = {
+            cat(person) {
+                console.log(`${person}买了一只猫咪`);
+            },
+            dog(person) {
+                console.log(`${person}买了一只狗子`);
+            },
+            pig(person) {
+                console.log(`${person}买了一只猪猪`);
+            },
+            //现在宠物店新进了一只宠物
+            monkey(person) {
+                console.log(`${person}买了一只猴子`);
+            },
+        };
+
+        return class {
+            constructor(type, person) {
+                try {
+                    return animal[type](person);
+                } catch {
+                    throw new Error(`尊敬的${person},很抱歉,本店没有${type}`);
+                }
             }
-        }
-    }
+        };
+    })();
 
+    //再次购买宠物
     new Animal("cat", "Tom");
     new Animal("pig", "Jack");
     new Animal("dog", "Lisa");
