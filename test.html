@@ -160,76 +160,141 @@
     // new Animal("monkey", "Heqi");
 
     // 总店
-    class HeadOffice {
-        sellAnimal(name, person) {
-            console.log(`店铺出售了一只${name}给${person}`);
+    // class HeadOffice {
+    //     sellAnimal(name, person) {
+    //         console.log(`店铺出售了一只${name}给${person}`);
+    //     }
+    //     buyAnimal(name, person) {
+    //         console.log(`${person}卖给店铺一只${name}`);
+    //     }
+    //     methods(type, name, person) {
+    //         switch (type) {
+    //             case "sell":
+    //                 this.sellAnimal(name, person);
+    //                 break;
+    //             case "buy":
+    //                 this.buyAnimal(name, person);
+    //         }
+    //     }
+    // }
+    // //陆地宠物分店
+    // class LandAnimal extends HeadOffice {
+    //     constructor() {
+    //         super();
+    //     }
+    //     cat(type, person) {
+    //         this.methods(type, "猫咪", person);
+    //     }
+    //     dog(type, person) {
+    //         this.methods(type, "狗狗", person);
+    //     }
+    //     pig(type, person) {
+    //         this.methods(type, "猪猪", person);
+    //     }
+    // }
+
+    // //水类宠物分店
+    // class FishAnimal extends HeadOffice {
+    //     constructor() {
+    //         super();
+    //     }
+    //     shark(type, person) {
+    //         this.methods(type, "鲨鱼", person);
+    //     }
+    //     whale(type, person) {
+    //         this.methods(type, "鲸鱼", person);
+    //     }
+    // }
+
+    // //店铺选择
+    // const pet = (shop) => {
+    //     switch (shop) {
+    //         case "land":
+    //             return new LandAnimal();
+    //             break;
+    //         case "fish":
+    //             return new FishAnimal();
+    //             break;
+    //         default:
+    //             throw new Error(`非常抱歉，暂时没有${shop}店铺`);
+    //     }
+    // };
+
+    // //去陆地宠物店
+    // const landShop = pet("land");
+    // landShop.cat("sell", "tom");
+    // landShop.dog("buy", "jack");
+
+    // //去水族馆
+    // const aquarium = pet("fish");
+    // aquarium.shark("sell", "lisa");
+    // aquarium.whale("buy", "Nick");
+
+    // //去一个不存在的店铺1
+    // const zoo = pet("zoo");
+
+    //单例模式
+    class Singleton {
+        static instance = null;
+        constructor(name) {
+            this.name = name;
         }
-        buyAnimal(name, person) {
-            console.log(`${person}卖给店铺一只${name}`);
+        getName() {
+            console.log(this.name);
         }
-        methods(type, name, person) {
-            switch (type) {
-                case "sell":
-                    this.sellAnimal(name, person);
-                    break;
-                case "buy":
-                    this.buyAnimal(name, person);
+        static getInstance(name) {
+            if (!Singleton.instance) {
+                Singleton.instance = new Singleton(name);
             }
-        }
-    }
-    //陆地宠物分店
-    class LandAnimal extends HeadOffice {
-        constructor() {
-            super();
-        }
-        cat(type, person) {
-            this.methods(type, "猫咪", person);
-        }
-        dog(type, person) {
-            this.methods(type, "狗狗", person);
-        }
-        pig(type, person) {
-            this.methods(type, "猪猪", person);
+            return Singleton.instance;
         }
     }
 
-    //水类宠物分店
-    class FishAnimal extends HeadOffice {
-        constructor() {
-            super();
-        }
-        shark(type, person) {
-            this.methods(type, "鲨鱼", person);
-        }
-        whale(type, person) {
-            this.methods(type, "鲸鱼", person);
-        }
-    }
+    const point1 = Singleton.getInstance("java");
+    const point2 = Singleton.getInstance("php");
+    point1.getName();
+    point2.getName();
+    console.log(point1 === point2);
 
-    //店铺选择
-    const pet = (shop) => {
-        switch (shop) {
-            case "land":
-                return new LandAnimal();
-                break;
-            case "fish":
-                return new FishAnimal();
-                break;
-            default:
-                throw new Error(`非常抱歉，暂时没有${shop}店铺`);
-        }
-    };
+    // class Singleton {
+    //     // 静态属性
+    //     static instance = null;
+    //     constructor(name) {
+    //         if (Singleton.instance) return Singleton.instance;
+    //         this.name = name;
+    //         return (Singleton.instance = this);
+    //     }
+    //     getName() {
+    //         console.log(this.name);
+    //     }
+    // }
+    // const point1 = new Singleton("javascript");
+    // const point2 = new Singleton("php");
+    // point1.getName();
+    // point2.getName();
+    // console.log(point1 === point2);
 
-    //去陆地宠物店
-    const landShop = pet("land");
-    landShop.cat("sell", "tom");
-    landShop.dog("buy", "jack");
+    // class Singleton {
+    //     constructor(name) {
+    //         this.name = name;
+    //     }
+    //     getName() {
+    //         console.log(this.name);
+    //     }
+    // }
 
-    //去水族馆
-    const aquarium = pet("fish");
-    aquarium.shark("sell", "lisa");
-    aquarium.whale("buy", "Nick");
-
-    //去一个不存在的店铺1
-    const zoo = pet("zoo");
+    // let proxySingleton = (function(){
+    //     var instance = null;
+    //     return function (name) {
+    //         if (!instance) {
+    //             instance = new Singleton(name);
+    //         }
+    //         return instance;
+    //     };
+    // })();
+    // const point1 = new proxySingleton("java");
+    // const point2 = new proxySingleton("javascript");
+    // point1.getName();
+    // point2.getName();
+    // console.log(point1 === point2);
 </script>

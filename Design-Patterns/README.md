@@ -489,3 +489,97 @@ console.log(car);
 ---
 
 ### 3.单例模式
+
+单例模式是一种常用的模式，有一些对象我们往往只需要一个，比如全局缓存、浏览器中的 window 对象等。单例模式用于保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+
+> 优点：适用于单一对象，只生成一个对象实例，避免频繁创建和销毁实例，减少内存占用。
+
+> 缺点：不适用动态扩展对象，或需创建多个相似对象的场景。
+
+-   普通版单例模式
+
+    通过静态属性定义了个 getInstance 方法，检查 instance 是否存在实现单例属性
+
+    但是也存在缺点，并不能通过 new 实例化，只能通过访问静态属性来创建，不够透明
+
+    ```js
+    //单例模式
+    class Singleton {
+        static instance = null;
+        constructor(name) {
+            this.name = name;
+        }
+        getName() {
+            console.log(this.name);
+        }
+        static getInstance(name) {
+            if (!Singleton.instance) {
+                Singleton.instance = new Singleton(name);
+            }
+            return Singleton.instance;
+        }
+    }
+
+    const point1 = Singleton.getInstance("javascript");
+    const point2 = Singleton.getInstance("php");
+    point1.getName(); // javascript
+    point2.getName(); // javascript
+    console.log(point1 === point2); // true
+
+    //不能new 实例化实现单例属性
+    const point3 = new Singleton("javascript");
+    const point4 = new Singleton("php");
+    point3.getName(); // javascript
+    point4.getName(); // php
+    console.log(point3 === point4); // false
+    ```
+
+-   透明单例实现（可以通过 new 创建的就是透明单例）
+
+    ```js
+    class Singleton {
+        // 静态属性
+        static instance = null;
+        constructor(name) {
+            if (Singleton.instance) return Singleton.instance;
+            this.name = name;
+            return (Singleton.instance = this);
+        }
+        getName() {
+            console.log(this.name);
+        }
+    }
+    const point1 = new Singleton("javascript");
+    const point2 = new Singleton("php");
+    point1.getName(); // javascript
+    point2.getName(); // javascript
+    console.log(point1 === point2); // true
+    ```
+
+-   代理模式单例
+
+    ```js
+    class Singleton {
+        constructor(name) {
+            this.name = name;
+        }
+        getName() {
+            console.log(this.name);
+        }
+    }
+
+    let proxySingleton = (function () {
+        var instance = null;
+        return function (name) {
+            if (!instance) {
+                instance = new Singleton(name);
+            }
+            return instance;
+        };
+    })();
+    const point1 = new proxySingleton("javascript");
+    const point2 = new proxySingleton("java");
+    point1.getName(); // javascript
+    point2.getName(); // javascript
+    console.log(point1 === point2); // ture
+    ```
