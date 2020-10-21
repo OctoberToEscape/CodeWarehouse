@@ -563,301 +563,301 @@
     };
 
     //第二步ES6 Map方法
-    const views = () => {
-        const map = new Map([
-            //中国
-            [
-                {
-                    people: "chinese",
-                    age: "youth",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转中国人青年页面,金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "youth",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转中国人青年页面,金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "youth",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转中国人青年页面,金额30000以上");
-                },
-            ],
+    // const views = () => {
+    //     const map = new Map([
+    //         //中国
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "youth",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人青年页面,金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "youth",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人青年页面,金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "youth",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人青年页面,金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "chinese",
-                    age: "middleAged",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转中国人中年页面,金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "middleAged",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转中国人中年页面,金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "middleAged",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转中国人中年页面,金额30000以上");
-                },
-            ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "middleAged",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人中年页面,金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "middleAged",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人中年页面,金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "middleAged",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人中年页面,金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "chinese",
-                    age: "elderly",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转中国人老年页面,金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "elderly",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转中国人老年页面,金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "chinese",
-                    age: "elderly",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转中国人老年页面,金额30000以上");
-                },
-            ],
-            //美国
-            [
-                {
-                    people: "americans",
-                    age: "youth",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转美国人青年页面,金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "youth",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转美国人青年页面,金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "youth",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转美国人青年页面,金额30000以上");
-                },
-            ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "elderly",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人老年页面,金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "elderly",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人老年页面,金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "elderly",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人老年页面,金额30000以上");
+    //             },
+    //         ],
+    //         //美国
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "youth",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人青年页面,金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "youth",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人青年页面,金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "youth",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人青年页面,金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "americans",
-                    age: "middleAged",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转美国人中年页面，金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "middleAged",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转美国人中年页面，金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "middleAged",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转美国人中年页面，金额30000以上");
-                },
-            ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "middleAged",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人中年页面，金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "middleAged",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人中年页面，金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "middleAged",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人中年页面，金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "americans",
-                    age: "elderly",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转美国人老年页面，金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "elderly",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转美国人老年页面，金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "americans",
-                    age: "elderly",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转美国人老年页面，金额30000以上");
-                },
-            ],
-            //英国
-            [
-                {
-                    people: "british",
-                    age: "youth",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转英国人青年页面，金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "youth",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转英国人青年页面，金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "youth",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转英国人青年页面，金额30000以上");
-                },
-            ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "elderly",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人老年页面，金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "elderly",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人老年页面，金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "elderly",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人老年页面，金额30000以上");
+    //             },
+    //         ],
+    //         //英国
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "youth",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人青年页面，金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "youth",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人青年页面，金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "youth",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人青年页面，金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "british",
-                    age: "middleAged",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转英国人中年页面，金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "middleAged",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转英国人中年页面，金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "middleAged",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转英国人中年页面，金额30000以上");
-                },
-            ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "middleAged",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人中年页面，金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "middleAged",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人中年页面，金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "middleAged",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人中年页面，金额30000以上");
+    //             },
+    //         ],
 
-            [
-                {
-                    people: "british",
-                    age: "elderly",
-                    hasMoney: 1,
-                },
-                () => {
-                    console.log("跳转英国人老年页面，金额0至10000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "elderly",
-                    hasMoney: 2,
-                },
-                () => {
-                    console.log("跳转英国人老年页面，金额10000至30000");
-                },
-            ],
-            [
-                {
-                    people: "british",
-                    age: "elderly",
-                    hasMoney: 3,
-                },
-                () => {
-                    console.log("跳转英国人老年页面，金额30000以上");
-                },
-            ],
-        ]);
-        return map;
-    };
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "elderly",
+    //                 hasMoney: 1,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人老年页面，金额0至10000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "elderly",
+    //                 hasMoney: 2,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人老年页面，金额10000至30000");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "elderly",
+    //                 hasMoney: 3,
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人老年页面，金额30000以上");
+    //             },
+    //         ],
+    //     ]);
+    //     return map;
+    // };
 
-    const linkView = (people, age, hasMoney) => {
-        let view = [...views()].filter(
-            ([key, value]) =>
-                key.people === people &&
-                key.age === age &&
-                key.hasMoney === hasMoney
-        );
+    // const linkView = (people, age, hasMoney) => {
+    //     let view = [...views()].filter(
+    //         ([key, value]) =>
+    //             key.people === people &&
+    //             key.age === age &&
+    //             key.hasMoney === hasMoney
+    //     );
 
-        view.forEach(([key, fn]) => fn());
-    };
+    //     view.forEach(([key, fn]) => fn());
+    // };
 
-    linkView("british", "middleAged", hasMoney(222222));
+    // linkView("british", "middleAged", hasMoney(222222));
 </script>

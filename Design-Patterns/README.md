@@ -587,3 +587,609 @@ console.log(car);
 ---
 
 ### 4.策略模式
+
+策略模式定义了一系列的算法，把它们一个个封装起来，并且使它们可以互相替换。策略模式的重心不是如何实现算法，而是如何组织、调用这些算法，从而让程序结构更灵活、可维护、可扩展。
+
+> 优点：多重条件语句不易维护，而使用策略模式可以避免使用多重条件语句。（解决 if 嵌套问题）
+
+> 缺点：
+>
+> > 1.客户端必须理解所有策略算法的区别，以便适时选择恰当的算法类。
+>
+> > 2.策略模式造成很多的策略类。
+
+#### 策略模式的通俗理解
+
+现在我们有了一个需求，根据不同国家的人员，进行不同页面语言的设置
+
+```js
+/*
+ * 基本需求：假设我们的网站针对3类国家人员进行不同语言的设置
+ * 人员分为：1.中国人，2.美国人，3.法国人
+ */
+
+//通常我们会用if去进行判断
+const peopleComeFrom = "chinese";
+
+if (people === "chinese") {
+    console.log("中文设置");
+} else if (people === "americans") {
+    console.log("英语设置");
+} else if (people === "french") {
+    console.log("法语设置");
+}
+//控制台打印 -> 中文设置
+
+//我们来进行简单的策略模式来优化这里
+const settingLanguage = {
+    chinese() {
+        console.log("中文设置");
+    },
+    americans() {
+        console.log("英语设置");
+    },
+    french() {
+        console.log("法语设置");
+    },
+};
+//调用
+settingLanguage[peopleComeFrom](); // 中文设置
+```
+
+**解决多重嵌套条件业务**:这个时候我们又多了一个需求，在设置语言的基础上，我们针对不同年龄段的人去推荐不同的广告，
+
+```js
+/*
+ * 基本需求：假设我们的网站针对3类国家人员进行不同语言的设置
+ * 人员分为：1.中国人，2.美国人，3.法国人
+ * 现在又加了个需求根据不同年龄段来再次进行页面的广告推送(青年，中年，老年)
+ */
+
+//传统方法可能是多层if嵌套;
+const people = "americans";
+const age = "elderly"; // 青年:youth , 中年:middleAged , 老年:elderly
+if (people === "chinese") {
+    if (age === "youth") {
+        console.log("中文设置，青年广告");
+    } else if (age === "middleAged") {
+        console.log("中文设置，中年广告");
+    } else if (age === "elderly") {
+        console.log("中文设置，老年广告");
+    }
+} else if (people === "americans") {
+    if (age === "youth") {
+        console.log("英语设置，青年广告");
+    } else if (age === "middleAged") {
+        console.log("英语设置，中年广告");
+    } else if (age === "elderly") {
+        console.log("英语设置，老年广告");
+    }
+} else if (people === "french") {
+    if (age === "youth") {
+        console.log("法语设置，青年广告");
+    } else if (age === "middleAged") {
+        console.log("法语设置，中年广告");
+    } else if (age === "elderly") {
+        console.log("法语设置，老年广告");
+    }
+}
+```
+
+看到上面的代码是不是已经快窒息了？这是个什么东西 `if 嵌套 if`，可能真实的需求不止 3 个国家的人，且越来越多的条件加入的同时，造成代码的可读性、可维护性、可迭代性急速下降，虽然上述代码格式化之后，看起来倒还是很工整的。这个时候我们就可以利用策略模式结合 ES6 的 `Map` 来进行优化
+
+```js
+//对算法进行分类
+const views = () => {
+    const map = new Map([
+        [
+            {
+                people: "chinese",
+                age: "youth",
+            },
+            () => {
+                console.log("中文设置，青年广告");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "middleAged",
+            },
+            () => {
+                console.log("中文设置，中年广告");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "elderly",
+            },
+            () => {
+                console.log("中文设置，老年广告");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "youth",
+            },
+            () => {
+                console.log("英语设置，青年广告");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "middleAged",
+            },
+            () => {
+                console.log("英语设置，中年广告");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "elderly",
+            },
+            () => {
+                console.log("英语设置，老年广告");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "youth",
+            },
+            () => {
+                console.log("法语设置，青年广告");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "middleAged",
+            },
+            () => {
+                console.log("法语设置，中年广告");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "elderly",
+            },
+            () => {
+                console.log("法语设置，老年广告");
+            },
+        ],
+    ]);
+    return map;
+};
+
+//根据参数调取不同的算法
+const linkView = (people, age) => {
+    let view = [...views()].filter(
+        ([key, value]) => key.people === people && key.age === age
+    );
+    view.forEach(([key, fn]) => fn());
+};
+
+//调用
+linkView("americans", "youth"); // 调用方法，进行传参数 打印：英语设置，青年广告
+```
+
+如果再有新增的规则，我们可以放在 map 里面进行新增对应规则与方法，减少条件嵌套地狱出现，并且逻辑会更加清晰。但实际情况中还可以对类似的方法进行合并，逻辑会更加清晰。
+
+**解决多重嵌套条件地狱**：在这个的基础上，我们有又新增了一个判断，根据用户选择金额的比来精准投放广告，这个时候你将体会到 if 语句的嵌套地狱模式
+
+```js
+/*
+ * 基本需求：假设我们的网站针对3类国家人员进行不同语言的设置
+ * 人员分为：1.中国人，2.美国人，3.法国人
+ * 现在又加了个需求根据不同年龄段来再次进行页面的广告推送(青年，中年，老年)
+ * 我们又再次加入需求，根据用户选择金额的数值来精准投放广告(0-10000,10000-30000,30000以上)
+ */
+
+const people = "americans";
+const age = "youth"; // 青年:youth , 中年:middleAged , 老年:elderly
+const money = 22222;
+if (people === "chinese") {
+    if (age === "youth") {
+        if (0 < money && money < 10000) {
+            console.log("中文设置，青年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("中文设置，青年广告，金额10000至30000");
+        } else {
+            console.log("中文设置，青年广告，金额30000以上");
+        }
+    } else if (age === "middleAged") {
+        if (0 < money && money < 10000) {
+            console.log("中文设置，中年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("中文设置，中年广告，金额10000至30000");
+        } else {
+            console.log("中文设置，中年广告，金额30000以上");
+        }
+    } else if (age === "elderly") {
+        if (0 < money && money < 10000) {
+            console.log("中文设置，老年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("中文设置，老年广告，金额10000至30000");
+        } else {
+            console.log("中文设置，老年广告，金额30000以上");
+        }
+    }
+} else if (people === "americans") {
+    if (age === "youth") {
+        if (0 < money && money < 10000) {
+            console.log("英语设置，青年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("英语设置，青年广告，金额10000至30000");
+        } else {
+            console.log("英语设置，青年广告，金额30000以上");
+        }
+    } else if (age === "middleAged") {
+        if (0 < money && money < 10000) {
+            console.log("英语设置，中年广告，金额30000以上");
+        } else if (money < 30000) {
+            console.log("英语设置，中年广告，金额30000以上");
+        } else {
+            console.log("英语设置，中年广告，金额30000以上");
+        }
+    } else if (age === "elderly") {
+        if (0 < money && money < 10000) {
+            console.log("英语设置，老年广告，金额30000以上");
+        } else if (money < 30000) {
+            console.log("英语设置，老年广告，金额30000以上");
+        } else {
+            console.log("英语设置，老年广告，金额30000以上");
+        }
+    }
+} else if (people === "french") {
+    if (age === "youth") {
+        if (0 < money && money < 10000) {
+            console.log("法语设置，青年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("法语设置，青年广告，金额10000至30000");
+        } else {
+            console.log("法语设置，青年广告，金额30000以上");
+        }
+    } else if (age === "middleAged") {
+        if (0 < money && money < 10000) {
+            console.log("法语设置，中年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("法语设置，中年广告，金额10000至30000");
+        } else {
+            console.log("法语设置，中年广告，金额30000以上");
+        }
+    } else if (age === "elderly") {
+        if (0 < money && money < 10000) {
+            console.log("法语设置，老年广告，金额0至10000");
+        } else if (money < 30000) {
+            console.log("法语设置，老年广告，金额10000至30000");
+        } else {
+            console.log("法语设置，老年广告，金额30000以上");
+        }
+    }
+}
+
+//打印结果为：英语设置，青年广告，金额10000至30000
+```
+
+现在内心看到这些代码是不是内心一万只草泥马奔腾而过？这是个什么东西？？？这是个什么鬼东西，现在是不是只想跑路，或者打死这样写代码的哥们。
+
+我们来用策略模式进行一下优化
+
+```js
+//第一步，我们已经知道金额是有3个档次，所以我们把金额提取出来单独写个方法
+const hasMoney = (money) => {
+    let type;
+    if (0 < money && money < 10000) type = 1;
+    //0-10000
+    else if (money < 30000) type = 2;
+    //10000-30000
+    else type = 3; // 30000以上
+    return type;
+};
+
+//第二部利用ES6的map
+const views = () => {
+    const map = new Map([
+        //中国
+        [
+            {
+                people: "chinese",
+                age: "youth",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("中文设置，青年广告,金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "youth",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("中文设置，青年广告,金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "youth",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("中文设置，青年广告,金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "chinese",
+                age: "middleAged",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("中文设置，中年广告,金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "middleAged",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("中文设置，中年广告,金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "middleAged",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("中文设置，中年广告,金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "chinese",
+                age: "elderly",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("中文设置，老年广告,金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "elderly",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("中文设置，老年广告,金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "chinese",
+                age: "elderly",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("中文设置，老年广告,金额30000以上");
+            },
+        ],
+        //美国
+        [
+            {
+                people: "americans",
+                age: "youth",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("英语设置，青年广告,金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "youth",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("英语设置，青年广告,金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "youth",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("英语设置，青年广告,金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "americans",
+                age: "middleAged",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("英语设置，中年广告，金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "middleAged",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("英语设置，中年广告，金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "middleAged",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("英语设置，中年广告，金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "americans",
+                age: "elderly",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("英语设置，老年广告，金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "elderly",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("英语设置，老年广告，金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "americans",
+                age: "elderly",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("英语设置，老年广告，金额30000以上");
+            },
+        ],
+        //法国
+        [
+            {
+                people: "french",
+                age: "youth",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("法语设置，青年广告，金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "youth",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("法语设置，青年广告，金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "youth",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("法语设置，青年广告，金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "french",
+                age: "middleAged",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("法语设置，中年广告，金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "middleAged",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("法语设置，中年广告，金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "middleAged",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("法语设置，中年广告，金额30000以上");
+            },
+        ],
+
+        [
+            {
+                people: "french",
+                age: "elderly",
+                hasMoney: 1,
+            },
+            () => {
+                console.log("法语设置，老年广告，金额0至10000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "elderly",
+                hasMoney: 2,
+            },
+            () => {
+                console.log("法语设置，老年广告，金额10000至30000");
+            },
+        ],
+        [
+            {
+                people: "french",
+                age: "elderly",
+                hasMoney: 3,
+            },
+            () => {
+                console.log("法语设置，老年广告，金额30000以上");
+            },
+        ],
+    ]);
+    return map;
+};
+
+const linkView = (people, age, hasMoney) => {
+    let view = [...views()].filter(
+        ([key, value]) =>
+            key.people === people &&
+            key.age === age &&
+            key.hasMoney === hasMoney
+    );
+
+    view.forEach(([key, fn]) => fn());
+};
+
+linkView("french", "middleAged", hasMoney(222222)); //打印:法语设置，中年广告，金额30000以上
+```
+
+上述就是将两个策略拆开再组合，可以使条件逻辑更加清晰，但是从上述例子也能看出，策略模式在使用过程中并不能减少很多的代码量，并且策略越多，拆分组合的过程就会越复杂，所以的使用过程中要合理运用。
