@@ -583,3 +583,7 @@ console.log(car);
     point2.getName(); // javascript
     console.log(point1 === point2); // ture
     ```
+
+---
+
+### 4.策略模式

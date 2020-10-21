@@ -234,27 +234,27 @@
     // const zoo = pet("zoo");
 
     //单例模式
-    class Singleton {
-        static instance = null;
-        constructor(name) {
-            this.name = name;
-        }
-        getName() {
-            console.log(this.name);
-        }
-        static getInstance(name) {
-            if (!Singleton.instance) {
-                Singleton.instance = new Singleton(name);
-            }
-            return Singleton.instance;
-        }
-    }
+    // class Singleton {
+    //     static instance = null;
+    //     constructor(name) {
+    //         this.name = name;
+    //     }
+    //     getName() {
+    //         console.log(this.name);
+    //     }
+    //     static getInstance(name) {
+    //         if (!Singleton.instance) {
+    //             Singleton.instance = new Singleton(name);
+    //         }
+    //         return Singleton.instance;
+    //     }
+    // }
 
-    const point1 = Singleton.getInstance("java");
-    const point2 = Singleton.getInstance("php");
-    point1.getName();
-    point2.getName();
-    console.log(point1 === point2);
+    // const point1 = Singleton.getInstance("java");
+    // const point2 = Singleton.getInstance("php");
+    // point1.getName();
+    // point2.getName();
+    // console.log(point1 === point2);
 
     // class Singleton {
     //     // 静态属性
@@ -297,4 +297,567 @@
     // point1.getName();
     // point2.getName();
     // console.log(point1 === point2);
+
+    //策略模式
+
+    /*
+     * 需求根据不同的不同的人群跳转针对不同国家人群的页面 (中国人:1，美国人:2，英国人:3)
+     */
+
+    // const people = "americans";
+    // // if语句判断
+    // if (people === "chinese") {
+    //     console.log("跳转中国人页面");
+    // } else if (people === "americans") {
+    //     console.log("跳转美国人页面");
+    // } else if (people === "british") {
+    //     console.log("跳转英国人页面");
+    // }
+
+    // //简单的用策略模式优化一下
+    // const travelView = {
+    //     chinese() {
+    //         console.log("跳转中国人页面");
+    //     },
+    //     americans() {
+    //         console.log("跳转美国人页面");
+    //     },
+    //     british() {
+    //         console.log("跳转英国人页面");
+    //     },
+    // };
+    // travelView[people]();
+
+    /*
+     * 需求根据不同的不同的人群跳转针对不同国家人群的页面 (中国人:1，美国人:2，英国人:3)
+     * 现在又加了个需求根据不同年龄段来再次进行页面的分割 (青年，中年，老年)
+     */
+
+    //传统方法可能是多层if嵌套
+    // const people = "americans";
+    // const age = "elderly"; // 青年:youth , 中年:middleAged , 老年:elderly
+    // if (people === "chinese") {
+    //     if (age === "youth") {
+    //         console.log("跳转中国人青年页面");
+    //     } else if (age === "middleAged") {
+    //         console.log("跳转中国人中年页面");
+    //     } else if (age === "elderly") {
+    //         console.log("跳转中国人老年页面");
+    //     }
+    // } else if (people === "americans") {
+    //     if (age === "youth") {
+    //         console.log("跳转美国人青年页面");
+    //     } else if (age === "middleAged") {
+    //         console.log("跳转美国人中年页面");
+    //     } else if (age === "elderly") {
+    //         console.log("跳转美国人老年页面");
+    //     }
+    // } else if (people === "british") {
+    //     if (age === "youth") {
+    //         console.log("跳转英国人青年页面");
+    //     } else if (age === "middleAged") {
+    //         console.log("跳转英国人中年页面");
+    //     } else if (age === "elderly") {
+    //         console.log("跳转英国人老年页面");
+    //     }
+    // }
+
+    //利用策略模式来解决这个多个if语句
+    // const views = () => {
+    //     const map = new Map([
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "youth",
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人青年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "middleAged",
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人中年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "chinese",
+    //                 age: "elderly",
+    //             },
+    //             () => {
+    //                 console.log("跳转中国人老年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "youth",
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人青年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "middleAged",
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人中年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "americans",
+    //                 age: "elderly",
+    //             },
+    //             () => {
+    //                 console.log("跳转美国人老年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "youth",
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人青年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "middleAged",
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人中年页面");
+    //             },
+    //         ],
+    //         [
+    //             {
+    //                 people: "british",
+    //                 age: "elderly",
+    //             },
+    //             () => {
+    //                 console.log("跳转英国人老年页面");
+    //             },
+    //         ],
+    //     ]);
+    //     return map;
+    // };
+
+    // const linkView = (people, age) => {
+    //     let view = [...views()].filter(
+    //         ([key, value]) => key.people === people && key.age === age
+    //     );
+    //     view.forEach(([key, fn]) => fn());
+    // };
+
+    // linkView("americans", "youth");
+
+    /*
+     * 需求根据不同的不同的人群跳转针对不同国家人群的页面 (中国人:1，美国人:2，英国人:3)
+     * 前面加了个需求根据不同年龄段来再次进行页面的分割 (青年，中年，老年)
+     * 现在又多了个需求，在以上两个的判断下在判断根据旅行金额的判断(0-10000,10000-30000,30000以上)
+     */
+
+    //传统方式if判断
+    // const people = "americans";
+    // const age = "youth"; // 青年:youth , 中年:middleAged , 老年:elderly
+    // const money = 22222;
+    // if (people === "chinese") {
+    //     if (age === "youth") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转中国人青年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转中国人青年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转中国人青年页面，金额30000以上");
+    //         }
+    //     } else if (age === "middleAged") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转中国人中年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转中国人中年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转中国人中年页面，金额30000以上");
+    //         }
+    //     } else if (age === "elderly") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转中国人老年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转中国人老年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转中国人老年页面，金额30000以上");
+    //         }
+    //     }
+    // } else if (people === "americans") {
+    //     if (age === "youth") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转美国人青年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转美国人青年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转美国人青年页面，金额30000以上");
+    //         }
+    //     } else if (age === "middleAged") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转美国人中年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转美国人中年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转美国人中年页面，金额30000以上");
+    //         }
+    //     } else if (age === "elderly") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转美国人老年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转美国人老年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转美国人老年页面，金额30000以上");
+    //         }
+    //     }
+    // } else if (people === "british") {
+    //     if (age === "youth") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转英国人青年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转英国人青年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转英国人青年页面，金额30000以上");
+    //         }
+    //     } else if (age === "middleAged") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转英国人中年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转英国人中年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转英国人中年页面，金额30000以上");
+    //         }
+    //     } else if (age === "elderly") {
+    //         if (0 < money && money < 10000) {
+    //             console.log("跳转英国人老年页面，金额0至10000");
+    //         } else if (money < 30000) {
+    //             console.log("跳转英国人老年页面，金额10000至30000");
+    //         } else {
+    //             console.log("跳转英国人老年页面，金额30000以上");
+    //         }
+    //     }
+    // }
+
+    //策略模式
+
+    //第一步，我们已经知道金额是有3个档次，所以我们把金额提取出来单独写个方法
+    const hasMoney = (money) => {
+        let type;
+        if (0 < money && money < 10000) type = 1;
+        //0-10000
+        else if (money < 30000) type = 2;
+        //10000-30000
+        else type = 3; // 30000以上
+        return type;
+    };
+
+    //第二步ES6 Map方法
+    const views = () => {
+        const map = new Map([
+            //中国
+            [
+                {
+                    people: "chinese",
+                    age: "youth",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转中国人青年页面,金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "youth",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转中国人青年页面,金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "youth",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转中国人青年页面,金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "chinese",
+                    age: "middleAged",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转中国人中年页面,金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "middleAged",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转中国人中年页面,金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "middleAged",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转中国人中年页面,金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "chinese",
+                    age: "elderly",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转中国人老年页面,金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "elderly",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转中国人老年页面,金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "chinese",
+                    age: "elderly",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转中国人老年页面,金额30000以上");
+                },
+            ],
+            //美国
+            [
+                {
+                    people: "americans",
+                    age: "youth",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转美国人青年页面,金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "youth",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转美国人青年页面,金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "youth",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转美国人青年页面,金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "americans",
+                    age: "middleAged",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转美国人中年页面，金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "middleAged",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转美国人中年页面，金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "middleAged",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转美国人中年页面，金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "americans",
+                    age: "elderly",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转美国人老年页面，金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "elderly",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转美国人老年页面，金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "americans",
+                    age: "elderly",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转美国人老年页面，金额30000以上");
+                },
+            ],
+            //英国
+            [
+                {
+                    people: "british",
+                    age: "youth",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转英国人青年页面，金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "youth",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转英国人青年页面，金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "youth",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转英国人青年页面，金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "british",
+                    age: "middleAged",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转英国人中年页面，金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "middleAged",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转英国人中年页面，金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "middleAged",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转英国人中年页面，金额30000以上");
+                },
+            ],
+
+            [
+                {
+                    people: "british",
+                    age: "elderly",
+                    hasMoney: 1,
+                },
+                () => {
+                    console.log("跳转英国人老年页面，金额0至10000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "elderly",
+                    hasMoney: 2,
+                },
+                () => {
+                    console.log("跳转英国人老年页面，金额10000至30000");
+                },
+            ],
+            [
+                {
+                    people: "british",
+                    age: "elderly",
+                    hasMoney: 3,
+                },
+                () => {
+                    console.log("跳转英国人老年页面，金额30000以上");
+                },
+            ],
+        ]);
+        return map;
+    };
+
+    const linkView = (people, age, hasMoney) => {
+        let view = [...views()].filter(
+            ([key, value]) =>
+                key.people === people &&
+                key.age === age &&
+                key.hasMoney === hasMoney
+        );
+
+        view.forEach(([key, fn]) => fn());
+    };
+
+    linkView("british", "middleAged", hasMoney(222222));
 </script>
