@@ -6,7 +6,7 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="app"></div>
+        <div id="app">13</div>
     </body>
 </html>
 <script>
@@ -552,15 +552,15 @@
     //策略模式
 
     //第一步，我们已经知道金额是有3个档次，所以我们把金额提取出来单独写个方法
-    const hasMoney = (money) => {
-        let type;
-        if (0 < money && money < 10000) type = 1;
-        //0-10000
-        else if (money < 30000) type = 2;
-        //10000-30000
-        else type = 3; // 30000以上
-        return type;
-    };
+    // const hasMoney = (money) => {
+    //     let type;
+    //     if (0 < money && money < 10000) type = 1;
+    //     //0-10000
+    //     else if (money < 30000) type = 2;
+    //     //10000-30000
+    //     else type = 3; // 30000以上
+    //     return type;
+    // };
 
     //第二步ES6 Map方法
     // const views = () => {
