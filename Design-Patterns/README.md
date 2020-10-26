@@ -1197,3 +1197,50 @@ linkView("french", "middleAged", hasMoney(222222)); //打印:法语设置，中�
 ---
 
 ### 5.适配器模式
+
+在实际生活中，也存在适配器的使用场景，比如：港式插头转换器、电源适配器和 USB 转接口。**而在软件工程中，适配器模式的作用是解决两个软件实体间的接口不兼容的问题。** 使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体就可以一起工作。
+
+```js
+/*
+ * 现在我们有个需求是通过地图来定位，这个时候引入了三个地图定位的第三方sdk
+ */
+
+const baiduMap = {
+    show: () => {
+        console.log("百度地图初始化了");
+    },
+};
+
+const googleMap = {
+    show: () => {
+        console.log("谷歌地图初始化了");
+    },
+};
+
+const tencentMap = {
+    create: () => {
+        console.log("腾讯地图初始化了");
+    },
+};
+
+//做适配
+const adapter = {
+    show: () => {
+        return tencentMap.create();
+    },
+};
+
+//初始化地图调用
+const renderMap = function (map) {
+    if (map.show instanceof Function) map.show();
+    else throw Error("不存在show方法");
+};
+
+renderMap(baiduMap);
+renderMap(googleMap);
+renderMap(tencentMap); // 不存在show，因为腾讯地图的方法是create，但是我们也想调用怎么办呢，就得用到适配器
+
+renderMap(adapter); // 腾讯地图初始化了 这样就能统一调用了
+```
+
+适配器模式在 JS 中的使用场景很多，在参数的适配上，有许多库和框架都使用适配器模式；数据的适配在解决前后端数据依赖上十分重要。但是适配器模式本质上是一个亡羊补牢的模式，它解决的是现存的两个接口之间不兼容的问题，你不应该在软件的初期开发阶段就使用该模式；如果在设计之初我们就能够统筹的规划好接口的一致性，那么适配器就应该尽量减少使用。
