@@ -862,40 +862,40 @@
     // linkView("british", "middleAged", hasMoney(222222));
 
     // renderMap(adapterGoogleMap);
-    const baiduMap = {
-        show: () => {
-            console.log("百度地图初始化了");
-        },
-    };
+    // const baiduMap = {
+    //     show: () => {
+    //         console.log("百度地图初始化了");
+    //     },
+    // };
 
-    const googleMap = {
-        show: () => {
-            console.log("谷歌地图初始化了");
-        },
-    };
+    // const googleMap = {
+    //     show: () => {
+    //         console.log("谷歌地图初始化了");
+    //     },
+    // };
 
-    const tencentMap = {
-        create: () => {
-            console.log("腾讯地图初始化了");
-        },
-    };
+    // const tencentMap = {
+    //     create: () => {
+    //         console.log("腾讯地图初始化了");
+    //     },
+    // };
 
-    //做适配
-    const adapter = {
-        show: () => {
-            return tencentMap.create();
-        },
-    };
+    // //做适配
+    // const adapter = {
+    //     show: () => {
+    //         return tencentMap.create();
+    //     },
+    // };
 
-    //初始化地图调用
-    const renderMap = function (map) {
-        if (map.show instanceof Function) map.show();
-        else throw Error("不存在show方法");
-    };
+    // //初始化地图调用
+    // const renderMap = function (map) {
+    //     if (map.show instanceof Function) map.show();
+    //     else throw Error("不存在show方法");
+    // };
 
-    renderMap(baiduMap);
-    renderMap(googleMap);
-    renderMap(tencentMap); // 不存在show，因为腾讯地图的方法是create，但是我们也想调用怎么办呢，就得用到适配器
+    // renderMap(baiduMap);
+    // renderMap(googleMap);
+    // renderMap(tencentMap); // 不存在show，因为腾讯地图的方法是create，但是我们也想调用怎么办呢，就得用到适配器
 
-    renderMap(adapter); // 腾讯地图初始化了 这样就能统一调用了
+    // renderMap(adapter); // 腾讯地图初始化了 这样就能统一调用了
 </script>
