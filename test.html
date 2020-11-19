@@ -14,39 +14,13 @@
     </body>
 </html>
 <script>
-    let list = [
-        {
-            src: "www.baidu1.com",
-            addTime: "2020-01-02",
-            updateTime: "2020-02-02",
-        },
-        {
-            src: "www.baidu2.com",
-            addTime: "2020-01-02",
-            updateTime: "2020-02-02",
-        },
-        {
-            src: "www.baidu3.com",
-            addTime: "2020-01-02",
-            updateTime: "2020-02-02",
-        },
-        {
-            src: "www.baidu4.com",
-            addTime: "2020-01-02",
-            updateTime: "2020-02-02",
-        },
-    ];
+    const build = function () {
+        build.prototype.getName();
+    };
 
-    list.forEach((item) => {
-        delete item.addTime;
-        delete item.updateTime;
-        list = list;
-    });
-
-    console.log(list);
-    console.log(list);
-    console.log(list);
-    console.log(list);
+    build.prototype.getName = function () {
+        console.log(8888);
+    };
 
     // //创建父类
     // class Build {
