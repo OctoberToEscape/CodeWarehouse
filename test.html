@@ -14,14 +14,15 @@
     </body>
 </html>
 <script>
-    const build = function () {
-        build.prototype.getName();
+    const build = () => {
+        console.log("创建");
     };
-
-    build.prototype.getName = function () {
-        console.log(8888);
+    const update = () => {
+        console.log("更新");
     };
-
+    const submit = () => {
+        console.log("提交");
+    };
     // //创建父类
     // class Build {
     //     //初始化
